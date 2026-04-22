@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm --filter @obs/overlay build && pnpm --filter @obs/builder build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": "apps/builder/dist",
+  "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/:path((?!overlay-template\\.html|assets/.*|favicon\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

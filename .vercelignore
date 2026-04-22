@@ -1,0 +1,9 @@
+node_modules
+.git
+.github
+apps/*/dist
+apps/*/.vite
+packages/*/dist
+.playwright-mcp
+coverage
+*.log
