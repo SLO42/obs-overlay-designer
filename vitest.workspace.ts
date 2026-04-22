@@ -5,4 +5,9 @@ import { defineWorkspace } from "vitest/config";
  * The root vitest.config.ts is still the default for anything not matched
  * below (it runs with `environment: "node"`).
  */
-export default defineWorkspace(["packages/core", "packages/widgets", "apps/builder"]);
+export default defineWorkspace([
+  "packages/core",
+  "packages/widgets",
+  "apps/builder",
+  "apps/overlay",
+]);

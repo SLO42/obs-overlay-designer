@@ -1,0 +1,73 @@
+/*
+ * Overlay runtime styles. The runtime is loaded by OBS as a Browser Source
+ * which composites transparently over the streamer's scene — do NOT set a
+ * background color anywhere.
+ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/*
+ * `.stage` is the 1920×1080 logical canvas. Its size is set via inline style
+ * (width/height from project.canvas) and scaled to fit the viewport via the
+ * `--stage-scale` CSS var, which Overlay.tsx recomputes on resize.
+ * The stage is centered inside #root; any surrounding area is transparent
+ * (OBS composites over whatever else is below).
+ */
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  transform: translate(calc(var(--stage-tx, 0px)), calc(var(--stage-ty, 0px)))
+    scale(var(--stage-scale, 1));
+}
+
+/*
+ * Empty-state placeholder shown before configuration lands. Uses Inter
+ * directly — overlay is intentionally NOT a design-system consumer.
+ */
+.empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(230, 232, 235, 0.7);
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+/* Fallback for unknown widget kinds. Muted, small — only surfaces in dev. */
+.unknown-widget {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  box-sizing: border-box;
+  padding: 4px;
+}
