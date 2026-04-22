@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Shadows</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; background: var(--bg-canvas); }
+  .card { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 2px; height: 72px; justify-content: center; border: 1px solid var(--border-subtle); }
+  .sm { box-shadow: var(--shadow-sm); }
+  .md { box-shadow: var(--shadow-md); }
+  .lg { box-shadow: var(--shadow-lg); }
+  .glow { box-shadow: var(--shadow-glow); border-color: transparent; }
+  .name { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--fg-primary); }
+  .use { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); }
+</style></head>
+<body>
+  <div class="card sm"><div class="name">shadow-sm</div><div class="use">inputs · chips</div></div>
+  <div class="card md"><div class="name">shadow-md</div><div class="use">menus · poppers</div></div>
+  <div class="card lg"><div class="name">shadow-lg</div><div class="use">modals · dialogs</div></div>
+  <div class="card glow"><div class="name">shadow-glow</div><div class="use">focus · live</div></div>
+</body></html>

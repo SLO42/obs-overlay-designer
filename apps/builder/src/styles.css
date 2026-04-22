@@ -1,24 +1,9 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+/* Builder owns its own globals — but the real reset + tokens come from
+ * the design-system's side-effect CSS import. */
 html,
 body,
 #root {
+  height: 100%;
   margin: 0;
   padding: 0;
-  min-height: 100%;
-}
-
-body {
-  background: #0b0d10;
-  color: #e6e8eb;
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
 }

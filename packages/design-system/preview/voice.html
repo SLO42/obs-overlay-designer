@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Voice & tone</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; font-family: var(--font-sans); color: var(--fg-body); }
+  .caption { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  td { padding: 6px 8px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+  td:first-child { width: 24px; font-family: var(--font-mono); font-weight: 700; }
+  .no { color: var(--c-danger-400); }
+  .yes { color: var(--c-success-400); }
+  .bad { color: var(--fg-muted); text-decoration: line-through; }
+  .good { color: var(--fg-primary); font-family: var(--font-mono); font-size: 11px; }
+</style></head>
+<body>
+  <div class="caption">Voice · direct · technical · faintly irreverent</div>
+  <table>
+    <tr><td class="no">✕</td><td class="bad">Awesome! Your overlay is live 🎉</td><td class="good">Overlay live · port 4567 · OBS can fetch now</td></tr>
+    <tr><td class="no">✕</td><td class="bad">Oops, something went wrong!</td><td class="good">EventSub dropped. Reconnecting in 3s.</td></tr>
+    <tr><td class="no">✕</td><td class="bad">Welcome back, streamer!</td><td class="good">Welcome back. Last session: 2h 14m ago.</td></tr>
+  </table>
+</body></html>

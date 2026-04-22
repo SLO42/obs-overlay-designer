@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; display: flex; flex-direction: column; gap: 8px; max-width: 380px; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .label { font-family: var(--font-sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-secondary); font-weight: 500; }
+  input, select { font-family: var(--font-sans); font-size: 13px; height: 30px; padding: 0 10px; background: var(--bg-surface-2); border: 1px solid var(--border-default); border-radius: var(--radius-md); color: var(--fg-primary); outline: none; }
+  input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,92,246,0.2); }
+  .num { display: flex; }
+  .num input { flex: 1; border-radius: var(--radius-md) 0 0 var(--radius-md); border-right: none; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .num .unit { background: var(--bg-surface-3); border: 1px solid var(--border-default); border-left: none; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0 10px; display: flex; align-items: center; font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+  .color { display: flex; gap: 6px; align-items: center; padding: 4px; background: var(--bg-surface-2); border: 1px solid var(--border-default); border-radius: var(--radius-md); height: 30px; }
+  .swatch { width: 22px; height: 22px; border-radius: var(--radius-sm); background: #8b5cf6; border: 1px solid rgba(255,255,255,0.1); }
+  .color input { border: none; background: transparent; height: 100%; padding: 0 8px; font-family: var(--font-mono); text-transform: uppercase; }
+</style></head>
+<body>
+  <div class="field"><span class="label">Widget name</span>
+    <input value="Main chat feed"/>
+  </div>
+  <div class="field"><span class="label">Font size</span>
+    <div class="num"><input value="14"/><span class="unit">px</span></div>
+  </div>
+  <div class="field"><span class="label">Tint</span>
+    <div class="color"><div class="swatch"></div><input value="#8B5CF6"/></div>
+  </div>
+</body></html>

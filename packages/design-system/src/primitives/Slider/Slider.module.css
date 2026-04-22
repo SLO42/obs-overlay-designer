@@ -1,0 +1,51 @@
+.root {
+  display: flex;
+  align-items: center;
+  height: var(--size-row-md);
+  padding: 0 8px;
+  width: 100%;
+}
+
+.track {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  background: var(--bg-surface-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  outline: none;
+  touch-action: none;
+}
+
+.track:focus-visible {
+  box-shadow: var(--ring);
+}
+
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+.thumb {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background: var(--fg-primary);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+}
+
+.disabled .track {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

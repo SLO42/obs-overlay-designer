@@ -1,0 +1,16 @@
+@import "../colors_and_type.css";
+
+/* Design-system minimal globals.
+ * Base reset (box-sizing, html/body background, fonts, canvas/grid motifs, semantic
+ * type classes) is defined in colors_and_type.css. This file adds only the bits
+ * that make sense when the package is used as a React SPA shell. */
+
+#root {
+  min-height: 100%;
+}
+
+/* Keyboard focus only — every primitive that uses `.ds-focus-ring` on
+ * :focus-visible inherits the double-stroke token ring via box-shadow. */
+:where(button, [role="button"], [role="switch"], [role="checkbox"], input, select, textarea):focus {
+  outline: none;
+}

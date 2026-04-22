@@ -5,3 +5,14 @@ coverage
 pnpm-lock.yaml
 *.min.js
 *.min.css
+
+# Untouched StreamTeam brand-kit drops — these are authored externally and
+# must not be reformatted (their exact bytes are load-bearing for the design
+# system contract).
+packages/design-system/colors_and_type.css
+packages/design-system/README.md
+packages/design-system/SKILL.md
+packages/design-system/preview/
+packages/design-system/ui_kits/
+packages/design-system/fonts/
+packages/design-system/assets/

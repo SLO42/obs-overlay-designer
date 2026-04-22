@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Spacing</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; }
+  .caption { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .stack { display: flex; align-items: flex-end; gap: 10px; height: 100px; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bar { background: var(--accent); width: 14px; border-radius: 2px 2px 0 0; }
+  .n { font-family: var(--font-mono); font-size: 10px; color: var(--fg-secondary); font-variant-numeric: tabular-nums; }
+  .t { font-family: var(--font-mono); font-size: 9px; color: var(--fg-muted); }
+</style></head>
+<body>
+  <div class="caption">Spacing · 4px grid</div>
+  <div class="stack">
+    <div class="col"><div class="bar" style="height:2px"></div><div class="n">2</div><div class="t">1</div></div>
+    <div class="col"><div class="bar" style="height:4px"></div><div class="n">4</div><div class="t">2</div></div>
+    <div class="col"><div class="bar" style="height:8px"></div><div class="n">8</div><div class="t">3</div></div>
+    <div class="col"><div class="bar" style="height:12px"></div><div class="n">12</div><div class="t">4</div></div>
+    <div class="col"><div class="bar" style="height:16px"></div><div class="n">16</div><div class="t">5</div></div>
+    <div class="col"><div class="bar" style="height:20px"></div><div class="n">20</div><div class="t">6</div></div>
+    <div class="col"><div class="bar" style="height:24px"></div><div class="n">24</div><div class="t">7</div></div>
+    <div class="col"><div class="bar" style="height:32px"></div><div class="n">32</div><div class="t">8</div></div>
+    <div class="col"><div class="bar" style="height:40px"></div><div class="n">40</div><div class="t">9</div></div>
+    <div class="col"><div class="bar" style="height:48px"></div><div class="n">48</div><div class="t">10</div></div>
+    <div class="col"><div class="bar" style="height:64px"></div><div class="n">64</div><div class="t">12</div></div>
+    <div class="col"><div class="bar" style="height:80px"></div><div class="n">96</div><div class="t">16</div></div>
+  </div>
+</body></html>

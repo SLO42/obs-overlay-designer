@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Accent</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 20px; }
+  .row { display: grid; grid-template-columns: 2fr repeat(6, 1fr); gap: 6px; height: 110px; }
+  .big { background: var(--accent); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; justify-content: space-between; color: white; }
+  .big .name { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.5px; }
+  .big .code { font-family: var(--font-mono); font-size: 12px; opacity: 0.85; }
+  .s { border-radius: var(--radius-sm); display: flex; flex-direction: column; justify-content: flex-end; padding: 6px; font-family: var(--font-mono); font-size: 9px; }
+  .s .k { opacity: 0.75; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="big">
+      <div class="name">Violet</div>
+      <div>
+        <div class="code">#8B5CF6</div>
+        <div class="code" style="opacity:0.65">single accent · use sparingly</div>
+      </div>
+    </div>
+    <div class="s" style="background:#2b1f57;color:#c4b5fd"><span class="k">100</span><span>2b1f57</span></div>
+    <div class="s" style="background:#3b2a85;color:#c4b5fd"><span class="k">200</span><span>3b2a85</span></div>
+    <div class="s" style="background:#5939b8;color:#fff"><span class="k">300</span><span>5939b8</span></div>
+    <div class="s" style="background:#7048e8;color:#fff"><span class="k">400</span><span>7048e8</span></div>
+    <div class="s" style="background:#a78bfa;color:#11141b"><span class="k">600</span><span>a78bfa</span></div>
+    <div class="s" style="background:#c4b5fd;color:#11141b"><span class="k">700</span><span>c4b5fd</span></div>
+  </div>
+</body></html>

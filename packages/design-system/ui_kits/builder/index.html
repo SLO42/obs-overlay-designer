@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StreamTeam — Builder</title>
+  <link rel="stylesheet" href="builder.css">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="Primitives.jsx"></script>
+  <script type="text/babel" src="Toolbar.jsx"></script>
+  <script type="text/babel" src="LeftRail.jsx"></script>
+  <script type="text/babel" src="Canvas.jsx"></script>
+  <script type="text/babel" src="Inspector.jsx"></script>
+  <script type="text/babel" src="StartScene.jsx"></script>
+  <script type="text/babel">
+    const initial = [
+      { id:'chat', icon:'chat', name:'Chat Feed', lane:'chat', x: 1340, y: 120, w: 500, h: 620 },
+      { id:'alert', icon:'gift', name:'Alert Box', lane:'alerts', x: 620, y: 100, w: 640, h: 220 },
+      { id:'emote', icon:'sparkle', name:'Emote Wall', lane:'emotes', x: 620, y: 360, w: 640, h: 180 },
+      { id:'redeem', icon:'zap', name:'Redeems', lane:'points', x: 80, y: 100, w: 420, h: 180 },
+    ];
+
+    function App() {
+      const [sceneShown, setSceneShown] = React.useState(() => localStorage.getItem('st-seen-scene') !== '1');
+      const [placed, setPlaced] = React.useState(initial);
+      const [selected, setSelected] = React.useState(1);
+      const [activeLane, setActiveLane] = React.useState('all');
+      const [stage, setStage] = React.useState('builder');
+      const [deployed, setDeployed] = React.useState(false);
+
+      const onEnter = () => { localStorage.setItem('st-seen-scene','1'); setSceneShown(false); };
+      const onDeploy = () => setDeployed(true);
+      const onAdd = (w) => {
+        const next = { ...w, x: 200 + Math.random()*800, y: 200 + Math.random()*400, w: 400, h: 240 };
+        setPlaced(p => [...p, next]);
+        setSelected(placed.length);
+      };
+
+      return (
+        <>
+          {sceneShown && <StartScene onEnter={onEnter}/>}
+          <div className="app">
+            <Toolbar deployed={deployed} onDeploy={onDeploy} stage={stage} setStage={setStage}/>
+            <LeftRail onAdd={onAdd} activeLane={activeLane} setActiveLane={setActiveLane}/>
+            <CanvasStage placed={placed} selected={selected} onSelect={setSelected} zoom={0.42}/>
+            <Inspector widget={placed[selected]}/>
+          </div>
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>

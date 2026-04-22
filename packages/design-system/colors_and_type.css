@@ -1,0 +1,343 @@
+/* ============================================================
+   StreamTeam Design System — Colors & Type
+   Dark DAW-dense workstation, violet accent, art-canvas feel
+   ============================================================ */
+
+/* ---------- Fonts ----------
+   Per CSS spec, @import must precede @font-face and other rules, so
+   Google Fonts comes first; the hand-drawn KG Second Chances family
+   is self-hosted from /fonts. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: 'KG Second Chances';
+  src: url('fonts/KGSecondChancesSolid.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KG Second Chances Sketch';
+  src: url('fonts/KGSecondChancesSketch.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ==========================================================
+     COLOR — Base palette
+     Cool/blue-leaning neutrals. Dark chrome (~#11141b / #1a1e27).
+     Violet 500 primary. Canvas-y off-black for the stage.
+     ========================================================== */
+
+  /* Neutrals — cool-leaning (hue ~230) */
+  --c-neutral-0:   #07080b;   /* deepest black, OBS preview void */
+  --c-neutral-50:  #0b0d12;   /* page background */
+  --c-neutral-100: #11141b;   /* surface-1 — panels */
+  --c-neutral-150: #161a23;   /* surface-2 — nested panels */
+  --c-neutral-200: #1a1e27;   /* surface-3 — cards, inputs */
+  --c-neutral-300: #242934;   /* hover surface */
+  --c-neutral-400: #333845;   /* borders, dividers */
+  --c-neutral-500: #4a5162;   /* disabled text, quiet icons */
+  --c-neutral-600: #6b7386;   /* secondary text */
+  --c-neutral-700: #9399ac;   /* tertiary text, labels */
+  --c-neutral-800: #c6cad6;   /* body text */
+  --c-neutral-900: #e6e8ef;   /* headings */
+  --c-neutral-1000:#f6f7fa;   /* inverse / on-accent */
+
+  /* Accent — violet */
+  --c-violet-100: #2b1f57;
+  --c-violet-200: #3b2a85;
+  --c-violet-300: #5939b8;
+  --c-violet-400: #7048e8;   /* hover */
+  --c-violet-500: #8b5cf6;   /* primary accent */
+  --c-violet-600: #a78bfa;   /* active / bright */
+  --c-violet-700: #c4b5fd;   /* tints */
+  --c-violet-glow: #8b5cf666;
+
+  /* Semantic */
+  --c-success-500: #2fb37a;
+  --c-success-400: #4ade80;
+  --c-success-bg:  #0f2a1f;
+
+  --c-warning-500: #e6a23c;
+  --c-warning-400: #f5b95a;
+  --c-warning-bg:  #2b1f0a;
+
+  --c-danger-500: #ef4b6b;
+  --c-danger-400: #ff6b8a;
+  --c-danger-bg:  #2b1018;
+
+  --c-info-500: #4da3ff;
+  --c-info-400: #7ebcff;
+  --c-info-bg:  #0a1a2b;
+
+  /* Signal lanes — color-coded channels for the widget system */
+  --c-lane-chat:    #4ade80;  /* green */
+  --c-lane-alerts:  #ff6b8a;  /* pink */
+  --c-lane-emotes:  #f5b95a;  /* amber */
+  --c-lane-points:  #a78bfa;  /* violet */
+  --c-lane-events:  #4da3ff;  /* blue */
+
+  /* ==========================================================
+     SEMANTIC COLOR TOKENS
+     Use these in component CSS, not the raw scale above.
+     ========================================================== */
+  --bg-canvas:     var(--c-neutral-50);
+  --bg-surface-1:  var(--c-neutral-100);
+  --bg-surface-2:  var(--c-neutral-150);
+  --bg-surface-3:  var(--c-neutral-200);
+  --bg-hover:      var(--c-neutral-300);
+  --bg-active:     var(--c-neutral-400);
+  --bg-stage:      var(--c-neutral-0);     /* the OBS preview black */
+
+  --fg-primary:    var(--c-neutral-900);
+  --fg-body:       var(--c-neutral-800);
+  --fg-secondary:  var(--c-neutral-700);
+  --fg-muted:      var(--c-neutral-600);
+  --fg-disabled:   var(--c-neutral-500);
+  --fg-inverse:    var(--c-neutral-50);
+
+  --border-subtle: #20242e;
+  --border-default:var(--c-neutral-400);
+  --border-strong: #4a5162;
+  --border-accent: var(--c-violet-500);
+
+  --accent:         var(--c-violet-500);
+  --accent-hover:   var(--c-violet-400);
+  --accent-active:  var(--c-violet-300);
+  --accent-subtle:  var(--c-violet-200);
+  --accent-fg:      var(--c-neutral-1000);
+
+  /* Focus ring — double-stroke so it survives on any surface */
+  --ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--accent);
+  --ring-danger: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--c-danger-500);
+
+  /* ==========================================================
+     TYPOGRAPHY
+     ========================================================== */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'KG Second Chances', 'Bricolage Grotesque', 'Archivo Black', sans-serif;
+  --font-display-sketch: 'KG Second Chances Sketch', 'KG Second Chances', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Sizes — linear-dense SaaS scale */
+  --fs-xs:   11px;
+  --fs-sm:   12px;
+  --fs-base: 13px;   /* tool default */
+  --fs-md:   14px;
+  --fs-lg:   16px;
+  --fs-xl:   20px;
+  --fs-2xl:  28px;
+  --fs-3xl:  40px;
+  --fs-4xl:  56px;
+  --fs-display: 88px;
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-snug:  1.25;
+  --lh-base:  1.45;
+  --lh-loose: 1.6;
+
+  /* Weights */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Tracking */
+  --tr-tight:  -0.02em;
+  --tr-normal: 0;
+  --tr-caps:   0.08em;
+
+  /* ==========================================================
+     SPACING — 4px grid
+     ========================================================== */
+  --space-0:  0;
+  --space-1:  2px;   /* hairline */
+  --space-2:  4px;
+  --space-3:  8px;
+  --space-4:  12px;
+  --space-5:  16px;
+  --space-6:  20px;
+  --space-7:  24px;
+  --space-8:  32px;
+  --space-9:  40px;
+  --space-10: 48px;
+  --space-12: 64px;
+  --space-16: 96px;
+
+  /* Component sizing (SaaS-dense rows) */
+  --size-row-xs: 22px;
+  --size-row-sm: 26px;
+  --size-row-md: 30px;  /* default input/button */
+  --size-row-lg: 36px;
+  --size-row-xl: 44px;
+
+  /* ==========================================================
+     RADII
+     ========================================================== */
+  --radius-sm:   3px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-xl:   16px;
+  --radius-full: 999px;
+
+  /* ==========================================================
+     SHADOWS — layered, violet-tinted
+     ========================================================== */
+  --shadow-sm: 0 1px 0 0 rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 8px -2px rgba(0,0,0,0.5), 0 2px 4px -1px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px -4px rgba(0,0,0,0.7), 0 4px 12px -2px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 0 1px rgba(139, 92, 246, 0.4), 0 0 24px rgba(139, 92, 246, 0.25);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+  /* ==========================================================
+     MOTION
+     ========================================================== */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:    120ms;
+  --dur-base:    200ms;
+  --dur-slow:    400ms;
+  --dur-scene:   900ms;   /* 3D scene transitions */
+
+  /* ==========================================================
+     Z-INDEX
+     ========================================================== */
+  --z-base:      1;
+  --z-sticky:    10;
+  --z-dropdown:  100;
+  --z-overlay:   500;
+  --z-modal:     1000;
+  --z-tooltip:   1100;
+  --z-toast:     1200;
+}
+
+/* ==========================================================
+   SEMANTIC TYPE CLASSES
+   ========================================================== */
+.ds-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  font-weight: 800;
+  letter-spacing: var(--tr-tight);
+  color: var(--fg-primary);
+}
+.ds-h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-tight);
+  font-weight: 700;
+  letter-spacing: var(--tr-tight);
+  color: var(--fg-primary);
+}
+.ds-h2 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-tight);
+  color: var(--fg-primary);
+}
+.ds-h3 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xl);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  color: var(--fg-primary);
+}
+.ds-h4 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  color: var(--fg-primary);
+}
+.ds-body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-weight: var(--fw-regular);
+  color: var(--fg-body);
+}
+.ds-body-sm {
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-base);
+  color: var(--fg-body);
+}
+.ds-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-medium);
+  color: var(--fg-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-caps);
+}
+.ds-caption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  color: var(--fg-muted);
+  line-height: var(--lh-base);
+}
+.ds-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-base);
+  font-weight: var(--fw-regular);
+  color: var(--fg-body);
+}
+.ds-mono-readout {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--fg-secondary);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.ds-kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-3);
+  border: 1px solid var(--border-default);
+  border-bottom-width: 2px;
+  color: var(--fg-secondary);
+}
+
+/* ==========================================================
+   RESET HELPERS — use in design system demo files
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-canvas);
+  color: var(--fg-body);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Canvas motif — dotted art-board, apply on demand via .ds-canvas-bg */
+.ds-canvas-bg {
+  background-color: var(--bg-stage);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+.ds-grid-bg {
+  background-color: var(--bg-canvas);
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 8px 8px;
+}

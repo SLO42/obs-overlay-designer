@@ -1,0 +1,31 @@
+.root {
+  overflow: auto;
+  min-height: 0;
+  min-width: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-violet-500) transparent;
+}
+
+.root::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.root::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.root::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: var(--radius-full);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.root:hover::-webkit-scrollbar-thumb,
+.root:focus-within::-webkit-scrollbar-thumb {
+  background: var(--c-violet-500);
+}
+
+.root::-webkit-scrollbar-corner {
+  background: transparent;
+}

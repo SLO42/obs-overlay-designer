@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Tabs & menus</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  /* Tabs */
+  .tabs { display: flex; border-bottom: 1px solid var(--border-subtle); gap: 0; }
+  .tab { padding: 8px 12px; font-family: var(--font-sans); font-size: 12px; color: var(--fg-secondary); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab.on { color: var(--fg-primary); border-bottom-color: var(--accent); }
+  .tab:hover:not(.on) { color: var(--fg-primary); }
+  .tabcontent { padding: 12px 0; font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+  /* Menu */
+  .menu { background: var(--bg-surface-3); border: 1px solid var(--border-default); border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 4px; width: 220px; }
+  .item { display: flex; align-items: center; padding: 6px 8px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 12px; color: var(--fg-body); gap: 8px; }
+  .item.on { background: var(--accent); color: white; }
+  .item .k { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); }
+  .item.on .k { color: rgba(255,255,255,0.7); }
+  .sep { height: 1px; background: var(--border-subtle); margin: 4px 0; }
+</style></head>
+<body>
+  <div>
+    <div class="tabs">
+      <div class="tab on">Style</div>
+      <div class="tab">Data</div>
+      <div class="tab">Triggers</div>
+      <div class="tab">Debug</div>
+    </div>
+    <div class="tabcontent">// fill · stroke · typography · motion</div>
+  </div>
+  <div class="menu">
+    <div class="item">Add chat feed<span class="k">⌘1</span></div>
+    <div class="item on">Add alert box<span class="k">⌘2</span></div>
+    <div class="item">Add emote wall<span class="k">⌘3</span></div>
+    <div class="sep"></div>
+    <div class="item">Import preset<span class="k">⇧⌘I</span></div>
+    <div class="item">Paste from URL</div>
+  </div>
+</body></html>

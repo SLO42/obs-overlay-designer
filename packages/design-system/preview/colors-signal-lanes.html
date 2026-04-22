@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Signal lanes</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; font-family: var(--font-sans); color: var(--fg-body); }
+  .caption { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .lanes { display: flex; flex-direction: column; gap: 6px; }
+  .lane { display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; gap: 10px; height: 22px; }
+  .tag { font-family: var(--font-mono); font-size: 11px; padding-left: 10px; display: flex; align-items: center; gap: 8px; }
+  .tag::before { content:''; width: 3px; height: 14px; border-radius: 1px; background: var(--lane); }
+  .bar { height: 6px; border-radius: 2px; background: linear-gradient(90deg, var(--lane) 0%, var(--lane) var(--pct), #242934 var(--pct), #242934 100%); position: relative; }
+  .bar::after { content:''; position:absolute; left: var(--pct); top: -3px; width: 2px; height: 12px; background: var(--lane); }
+  .count { font-family: var(--font-mono); font-size: 11px; color: var(--fg-secondary); text-align: right; }
+</style></head>
+<body>
+  <div class="caption">widget signal lanes</div>
+  <div class="lanes">
+    <div class="lane" style="--lane:#4ade80;--pct:72%"><div class="tag">chat</div><div class="bar"></div><div class="count">48 msg/s</div></div>
+    <div class="lane" style="--lane:#ff6b8a;--pct:15%"><div class="tag">alerts</div><div class="bar"></div><div class="count">2 queued</div></div>
+    <div class="lane" style="--lane:#f5b95a;--pct:54%"><div class="tag">emotes</div><div class="bar"></div><div class="count">31 pooled</div></div>
+    <div class="lane" style="--lane:#a78bfa;--pct:38%"><div class="tag">points</div><div class="bar"></div><div class="count">7 redeems</div></div>
+    <div class="lane" style="--lane:#4da3ff;--pct:22%"><div class="tag">events</div><div class="bar"></div><div class="count">sub · raid</div></div>
+  </div>
+</body></html>

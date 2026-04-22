@@ -1,0 +1,19 @@
+.root {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-inset);
+  color: var(--fg-body);
+  min-width: 0;
+}
+
+.tone-default {
+  background: var(--bg-surface-1);
+}
+
+.tone-raised {
+  background: var(--bg-surface-2);
+}
+
+.tone-nested {
+  background: var(--bg-surface-3);
+}

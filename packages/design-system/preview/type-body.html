@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Body type</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; font-family: var(--font-sans); }
+  .title { font-size: 20px; font-weight: 600; color: var(--fg-primary); letter-spacing: -0.02em; margin: 0 0 2px; }
+  .desc { font-size: 13px; color: var(--fg-body); line-height: 1.45; margin: 0 0 10px; max-width: 520px; }
+  .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-secondary); font-weight: 500; margin-top: 12px; display: block; }
+  .caption { font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
+  hr { border: none; border-top: 1px solid var(--border-subtle); margin: 10px 0; }
+</style></head>
+<body>
+  <h1 class="title">Configure chat feed</h1>
+  <p class="desc">The chat feed subscribes to Twitch EventSub over a single WebSocket and renders messages in the order they arrive. Per-user cooldowns and banned-phrase filters apply client-side before paint.</p>
+  <hr/>
+  <span class="label">Input · source</span>
+  <div class="caption">Defaults to the connected channel. Change in settings.</div>
+</body></html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Sliders</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .field { display: grid; grid-template-columns: 90px 1fr 60px; gap: 10px; align-items: center; }
+  .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+  .track { position: relative; height: 4px; background: var(--bg-surface-3); border-radius: 999px; }
+  .fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent); border-radius: 999px; }
+  .thumb { position: absolute; top: -5px; width: 14px; height: 14px; background: white; border: 2px solid var(--accent); border-radius: 999px; box-shadow: var(--shadow-sm); }
+  .val { font-family: var(--font-mono); font-size: 12px; color: var(--fg-primary); text-align: right; font-variant-numeric: tabular-nums; }
+  .ticks { position: absolute; inset: 0; display: flex; justify-content: space-between; pointer-events: none; }
+  .ticks span { width: 1px; height: 4px; background: var(--border-default); align-self: center; }
+</style></head>
+<body>
+  <div class="field">
+    <div class="lbl">Opacity</div>
+    <div class="track"><div class="ticks"><span></span><span></span><span></span><span></span><span></span></div><div class="fill" style="width:85%"></div><div class="thumb" style="left:calc(85% - 7px)"></div></div>
+    <div class="val">0.85</div>
+  </div>
+  <div class="field">
+    <div class="lbl">Scale</div>
+    <div class="track"><div class="fill" style="width:50%"></div><div class="thumb" style="left:calc(50% - 7px)"></div></div>
+    <div class="val">1.00×</div>
+  </div>
+  <div class="field">
+    <div class="lbl">Delay</div>
+    <div class="track"><div class="fill" style="width:30%"></div><div class="thumb" style="left:calc(30% - 7px)"></div></div>
+    <div class="val">240 ms</div>
+  </div>
+  <div class="field">
+    <div class="lbl">Pitch</div>
+    <div class="track"><div class="fill" style="width:65%"></div><div class="thumb" style="left:calc(65% - 7px)"></div></div>
+    <div class="val">+3 st</div>
+  </div>
+</body></html>

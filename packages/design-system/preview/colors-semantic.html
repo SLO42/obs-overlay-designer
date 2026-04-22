@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Semantic</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .card { background: var(--bg-surface-2); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .dot-row { display: flex; align-items: center; gap: 8px; }
+  .dot { width: 10px; height: 10px; border-radius: 999px; }
+  .name { font-family: var(--font-sans); font-size: 12px; font-weight: 600; color: var(--fg-primary); }
+  .code { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); margin-left: auto; }
+  .sample { padding: 6px 8px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 10px; display: flex; align-items: center; gap: 6px; }
+  .status { width: 6px; height: 6px; border-radius: 999px; }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="card">
+      <div class="dot-row"><span class="dot" style="background:#2fb37a"></span><span class="name">Success</span><span class="code">#2fb37a</span></div>
+      <div class="sample" style="background:#0f2a1f;color:#4ade80;"><span class="status" style="background:#4ade80"></span>Connected</div>
+    </div>
+    <div class="card">
+      <div class="dot-row"><span class="dot" style="background:#e6a23c"></span><span class="name">Warning</span><span class="code">#e6a23c</span></div>
+      <div class="sample" style="background:#2b1f0a;color:#f5b95a;"><span class="status" style="background:#f5b95a"></span>Drift 240ms</div>
+    </div>
+    <div class="card">
+      <div class="dot-row"><span class="dot" style="background:#ef4b6b"></span><span class="name">Danger</span><span class="code">#ef4b6b</span></div>
+      <div class="sample" style="background:#2b1018;color:#ff6b8a;"><span class="status" style="background:#ff6b8a"></span>EventSub dropped</div>
+    </div>
+    <div class="card">
+      <div class="dot-row"><span class="dot" style="background:#4da3ff"></span><span class="name">Info</span><span class="code">#4da3ff</span></div>
+      <div class="sample" style="background:#0a1a2b;color:#7ebcff;"><span class="status" style="background:#7ebcff"></span>3 listeners active</div>
+    </div>
+  </div>
+</body></html>

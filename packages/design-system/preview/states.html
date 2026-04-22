@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Focus & states</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; display: flex; flex-direction: column; gap: 10px; font-family: var(--font-sans); color: var(--fg-body); }
+  .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; min-width: 90px; }
+  .item { height: 28px; padding: 0 12px; background: var(--bg-surface-3); border: 1px solid var(--border-default); border-radius: var(--radius-md); display: flex; align-items: center; font-size: 12px; color: var(--fg-body); }
+  .hover    { background: var(--bg-hover); border-color: var(--border-strong); }
+  .press    { background: #131720; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
+  /* Focus — subtler: single 2px violet ring with a 1px canvas-gap so it reads on any surface */
+  .focus    { box-shadow: 0 0 0 1px var(--bg-canvas), 0 0 0 3px rgba(139,92,246,0.55); }
+  /* Selected — full accent surface, reads as the active thing */
+  .selected { background: rgba(139,92,246,0.18); border-color: var(--accent); color: var(--fg-primary); }
+  .disabled { opacity: 0.4; cursor: not-allowed; }
+  .caption  { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .note     { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); margin-top: 4px; }
+</style></head>
+<body>
+  <div class="caption">Interaction states · rest · hover · press · focus · selected · disabled</div>
+  <div class="row">
+    <div class="item">Rest</div>
+    <div class="item hover">Hover</div>
+    <div class="item press">Press</div>
+    <div class="item focus">Focus</div>
+    <div class="item selected">Selected</div>
+    <div class="item disabled">Disabled</div>
+  </div>
+  <div class="note">focus: 2px violet ring + 1px canvas gap · selected: violet-tinted fill + solid accent border</div>
+</body></html>

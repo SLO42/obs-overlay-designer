@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Inspector field</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; max-width: 340px; }
+  .panel { background: var(--bg-surface-2); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px; box-shadow: var(--shadow-inset); }
+  .ptitle { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .lane { width: 3px; height: 14px; background: var(--c-lane-alerts); border-radius: 1px; }
+  .pname { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--fg-primary); }
+  .pchip { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); background: var(--bg-surface-3); padding: 2px 6px; border-radius: 3px; }
+  .field { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 6px 0; align-items: start; }
+  .label { font-family: var(--font-mono); font-size: 11px; color: var(--fg-secondary); text-transform: uppercase; letter-spacing: 0.06em; padding-top: 6px; }
+  .value { font-family: var(--font-sans); font-size: 13px; color: var(--fg-primary); }
+  input { font-family: var(--font-mono); font-size: 12px; height: 26px; padding: 0 8px; background: var(--bg-surface-3); border: 1px solid var(--border-default); border-radius: var(--radius-sm); color: var(--fg-primary); outline: none; width: 100%; font-variant-numeric: tabular-nums; }
+  .desc { font-family: var(--font-sans); font-size: 11px; color: var(--fg-muted); margin-top: 4px; }
+  .err { font-family: var(--font-mono); font-size: 10px; color: var(--c-danger-400); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .err-input { border-color: var(--c-danger-500) !important; }
+</style></head>
+<body>
+  <div class="panel">
+    <div class="ptitle"><div class="lane"></div><div class="pname">Alert box</div><div class="pchip">24 × 36</div></div>
+    <div class="field">
+      <div class="label">Duration</div>
+      <div><input value="4500"/><div class="desc">ms visible before auto-dismiss</div></div>
+    </div>
+    <div class="field">
+      <div class="label">Sound</div>
+      <div><input value="chime-02.wav"/></div>
+    </div>
+    <div class="field">
+      <div class="label">Min bits</div>
+      <div><input class="err-input" value="-100"/><div class="err">must be positive</div></div>
+    </div>
+  </div>
+</body></html>

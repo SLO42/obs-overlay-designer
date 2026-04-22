@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Type scale</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 16px; }
+  .row { display: grid; grid-template-columns: 44px 1fr 90px; gap: 10px; padding: 4px 0; border-bottom: 1px solid var(--border-subtle); align-items: baseline; }
+  .row:last-child { border: none; }
+  .tag { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-align: right; }
+  .spec { color: var(--fg-primary); font-family: var(--font-sans); }
+</style></head>
+<body>
+  <div class="row"><span class="tag">xs</span><span class="spec" style="font-size:11px">The quick brown fox</span><span class="meta">11/1.4</span></div>
+  <div class="row"><span class="tag">sm</span><span class="spec" style="font-size:12px">The quick brown fox</span><span class="meta">12/1.4</span></div>
+  <div class="row"><span class="tag">base</span><span class="spec" style="font-size:13px">The quick brown fox</span><span class="meta">13/1.45</span></div>
+  <div class="row"><span class="tag">md</span><span class="spec" style="font-size:14px">The quick brown fox</span><span class="meta">14/1.45</span></div>
+  <div class="row"><span class="tag">lg</span><span class="spec" style="font-size:16px">The quick brown fox</span><span class="meta">16/1.5</span></div>
+  <div class="row"><span class="tag">xl</span><span class="spec" style="font-size:20px;font-weight:600">The quick brown fox</span><span class="meta">20/1.25</span></div>
+  <div class="row"><span class="tag">2xl</span><span class="spec" style="font-size:28px;font-weight:600;letter-spacing:-0.02em">The quick brown fox</span><span class="meta">28/1.25</span></div>
+</body></html>

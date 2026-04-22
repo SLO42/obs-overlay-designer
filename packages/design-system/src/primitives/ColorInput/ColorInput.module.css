@@ -1,0 +1,67 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px;
+  height: var(--size-row-md);
+  background: var(--bg-surface-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.root:hover:not(:focus-within) {
+  border-color: var(--border-strong);
+}
+
+.root:focus-within {
+  border-color: var(--border-accent);
+  box-shadow: var(--ring);
+}
+
+.invalid {
+  border-color: var(--c-danger-500);
+}
+.invalid:focus-within {
+  box-shadow: var(--ring-danger);
+}
+
+.swatch {
+  position: relative;
+  width: 22px;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.nativeColor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.hex {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--fg-primary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  padding: 0 4px;
+  font-variant-numeric: tabular-nums;
+}

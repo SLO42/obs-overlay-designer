@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Logo</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 20px; display: flex; align-items: center; gap: 32px; background: var(--bg-canvas); }
+  .mark { width: 72px; height: 72px; }
+  .stack { display: flex; flex-direction: column; gap: 4px; }
+  .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 48px; color: var(--fg-primary); line-height: 1; }
+  .wordmark .accent { color: var(--accent); }
+  .tagline { font-family: var(--font-display-sketch); font-size: 18px; color: var(--fg-muted); }
+  .chip { margin-left: auto; padding: 6px 10px; background: var(--bg-surface-2); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; color: var(--fg-secondary); }
+</style></head>
+<body>
+  <img src="../assets/logo.svg" class="mark" alt="mark">
+  <div class="stack">
+    <div class="wordmark">stream<span class="accent">team</span></div>
+    <div class="tagline">build the crew · ship to obs</div>
+  </div>
+  <div class="chip">v1.0 · violet 500</div>
+</body></html>

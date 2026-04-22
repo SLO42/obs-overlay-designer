@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Display sketch</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { padding: 20px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: end; }
+  .block { display: flex; flex-direction: column; gap: 4px; }
+  .solid { font-family: var(--font-display); font-size: 52px; color: var(--fg-primary); line-height: 1; }
+  .sketch { font-family: var(--font-display-sketch); font-size: 52px; color: var(--accent); line-height: 1; }
+  .caption { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="block">
+      <div class="solid">streamteam.</div>
+      <div class="caption">KG Second Chances Solid · wordmark + hero</div>
+    </div>
+    <div class="block">
+      <div class="sketch">go live!</div>
+      <div class="caption">KG Second Chances Sketch · accents + handwritten moments</div>
+    </div>
+  </div>
+</body></html>
