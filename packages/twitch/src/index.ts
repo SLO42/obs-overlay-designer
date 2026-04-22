@@ -52,6 +52,15 @@ export {
   type UseTwitchConnectionResult,
 } from "./react/useTwitchConnection";
 export {
+  TwitchConnectionProvider,
+  useTwitchConnectionContext,
+  type TwitchConnectionContextValue,
+  type TwitchConnectionProviderProps,
+} from "./react/context";
+export { useRewards, type UseRewardsOptions, type UseRewardsResult } from "./react/useRewards";
+export { createRewardsClient, type RewardsClient } from "./rewards/client";
+export type { CustomReward, CreateRewardBody, UpdateRewardBody } from "./rewards/types";
+export {
   AUTHORIZE_URL,
   EVENTSUB_WS_URL,
   getClientId,

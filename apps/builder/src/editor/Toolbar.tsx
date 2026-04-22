@@ -19,6 +19,7 @@ import { SHORTCUTS } from "./shortcuts";
 import type { StageMode } from "./Editor";
 import { ExportDialog } from "./export/ExportDialog";
 import { ConnectDialog } from "./twitch/ConnectDialog";
+import { RewardsDialog } from "./rewards/RewardsDialog";
 import { useTwitchContext } from "./twitch/TwitchProvider";
 
 interface ToolbarProps {
@@ -145,6 +146,7 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
 
   const [exportOpen, setExportOpen] = useState(false);
   const [connectOpen, setConnectOpen] = useState(false);
+  const [rewardsOpen, setRewardsOpen] = useState(false);
 
   // Shared Twitch connection (lazy-created by <TwitchProvider />). We only
   // read from it here — the dialog drives the actual connect flow.
@@ -332,6 +334,11 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
       >
         {twitchStatus === "active" ? "Connected" : "Connect"}
       </Button>
+      <Tooltip content="Manage rewards">
+        <IconButton aria-label="Channel-point rewards" onClick={() => setRewardsOpen(true)}>
+          <Icon name="Gift" />
+        </IconButton>
+      </Tooltip>
       {savedBadge}
       <Button
         variant="primary"
@@ -343,6 +350,7 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
       </Button>
       <ExportDialog open={exportOpen} onOpenChange={setExportOpen} />
       <ConnectDialog open={connectOpen} onOpenChange={setConnectOpen} />
+      <RewardsDialog open={rewardsOpen} onOpenChange={setRewardsOpen} />
     </Stack>
   );
 }

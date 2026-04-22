@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useRef, type ReactNode } from "react";
-import { TwitchConnection } from "@obs/twitch";
+import { TwitchConnection, TwitchConnectionProvider } from "@obs/twitch";
 
 interface TwitchProviderValue {
   connection: TwitchConnection;
@@ -46,7 +46,15 @@ export function TwitchProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<TwitchProviderValue>(() => ({ connection: connRef.current! }), []);
 
-  return <TwitchContext.Provider value={value}>{children}</TwitchContext.Provider>;
+  // Also publish the connection through `@obs/twitch`'s own React context so
+  // package-level hooks like `useRewards` can reach it without a separate
+  // prop threading. The builder's local `TwitchContext` stays as the
+  // app-level convenience.
+  return (
+    <TwitchContext.Provider value={value}>
+      <TwitchConnectionProvider connection={value.connection}>{children}</TwitchConnectionProvider>
+    </TwitchContext.Provider>
+  );
 }
 
 /** Hook: grab the shared connection. Throws if used outside the provider. */

@@ -38,7 +38,9 @@ function setAtPath(
 
 /**
  * Inspector Style tab body. Shows widget geometry (x/y/w/h) on top and
- * the auto-generated form for the widget's `props` schema below.
+ * the widget's properties form below. The form is `def.Inspector` when a
+ * widget registers a custom one, or the auto-generated `ZodRenderer`
+ * fallback when it doesn't.
  */
 export function InspectorForm({ widget }: InspectorFormProps) {
   const def = getWidget(widget.kind);
@@ -57,6 +59,8 @@ export function InspectorForm({ widget }: InspectorFormProps) {
     const topKey = path[0]!;
     updateProps(widget.id, { [topKey]: patched[topKey] });
   };
+
+  const CustomInspector = def.Inspector;
 
   return (
     <Stack gap={3}>
@@ -101,12 +105,19 @@ export function InspectorForm({ widget }: InspectorFormProps) {
       </div>
       <div>
         <div className={styles.sectionTitle}>Properties</div>
-        <ZodRenderer
-          schema={def.schema as never}
-          value={widget.props as Record<string, unknown>}
-          onChange={handlePropChange}
-          idPrefix={`prop-${widget.id}`}
-        />
+        {CustomInspector ? (
+          <CustomInspector
+            widget={widget}
+            update={(patch) => updateProps(widget.id, patch as Record<string, unknown>)}
+          />
+        ) : (
+          <ZodRenderer
+            schema={def.schema as never}
+            value={widget.props as Record<string, unknown>}
+            onChange={handlePropChange}
+            idPrefix={`prop-${widget.id}`}
+          />
+        )}
       </div>
     </Stack>
   );

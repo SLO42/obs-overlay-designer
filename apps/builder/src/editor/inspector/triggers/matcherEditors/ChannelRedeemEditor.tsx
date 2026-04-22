@@ -1,5 +1,6 @@
-import { Input, InspectorField, Stack } from "@obs/design-system";
+import { InspectorField, Stack } from "@obs/design-system";
 import type { TriggerMatcher } from "@obs/core";
+import { RewardSelect } from "../../../rewards/RewardSelect";
 
 type ChannelRedeemMatcher = Extract<TriggerMatcher, { type: "channel.redeem" }>;
 
@@ -10,20 +11,21 @@ interface ChannelRedeemEditorProps {
 
 /**
  * Channel points reward matcher. Task 19 replaces the free-text input with
- * a Select sourced from Helix so streamers pick from their existing
- * rewards; for now the raw id is authored by hand (copyable from the
- * debug event log).
+ * a Select sourced from Helix (via `useRewards`) — a user with Twitch
+ * connected picks from their existing rewards; offline or unconnected
+ * users fall back to the plain input so authored projects remain editable.
  */
 export function ChannelRedeemEditor({ matcher, onChange }: ChannelRedeemEditorProps) {
   return (
     <Stack gap={2}>
-      <InspectorField label="Reward ID" description="Reward picker lands in a later task">
-        <Input
+      <InspectorField
+        label="Reward"
+        description="Pick from your rewards when connected, or paste an ID."
+      >
+        <RewardSelect
           value={matcher.rewardId}
-          onChange={(event) => onChange({ rewardId: event.target.value })}
-          placeholder="reward-uuid"
+          onChange={(next) => onChange({ rewardId: next })}
           aria-label="Reward id"
-          spellCheck={false}
         />
       </InspectorField>
     </Stack>

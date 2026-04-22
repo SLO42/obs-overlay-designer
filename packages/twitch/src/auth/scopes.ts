@@ -18,12 +18,21 @@ export type Scope =
 
 /**
  * Default scope set requested by the Connect button in the builder. Covers
- * the EventSub subscription types we auto-create. Callers can narrow this
- * by passing an explicit `scopes` to `openAuthPopup`.
+ * the EventSub subscription types we auto-create plus the Helix rewards
+ * CRUD surface exposed by the builder's Rewards dialog. Callers can narrow
+ * this by passing an explicit `scopes` to `openAuthPopup`.
+ *
+ * Notes:
+ *  - `channel:manage:redemptions` is required to PATCH/DELETE custom rewards
+ *    the app created. It's wider than `channel:read:redemptions` (which only
+ *    covers read + redemption notifications), so we request both explicitly
+ *    so degraded clients that only grant the read scope still function for
+ *    EventSub even if the rewards dialog is gated.
  */
 export const DEFAULT_SCOPES: Scope[] = [
   "user:read:chat",
   "channel:read:redemptions",
+  "channel:manage:redemptions",
   "bits:read",
   "moderator:read:followers",
   "channel:read:subscriptions",

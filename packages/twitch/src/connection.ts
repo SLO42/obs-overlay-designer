@@ -49,6 +49,13 @@ export interface ConnectOptions {
 export class TwitchConnection {
   status: ConnectionStatus = "idle";
   token: string | null = null;
+  /**
+   * Scopes granted by Twitch on the current token. Sourced from the
+   * validate-token response (Twitch returns the effective set, which may
+   * differ from the `scope=` URL param if the user deselected any). Used
+   * by helpers like `useRewards` that must gate UI on specific scopes.
+   */
+  scopes: string[] = [];
   userLogin: string | null = null;
   userId: string | null = null;
   channelLogin: string | null = null;
@@ -86,6 +93,7 @@ export class TwitchConnection {
       this.token = token;
       this.userId = info.userId;
       this.userLogin = info.login;
+      this.scopes = info.scopes;
       this.setStatus("idle");
       return true;
     } catch (err) {
@@ -140,6 +148,7 @@ export class TwitchConnection {
       this.token = stored.token;
       this.userId = info.userId;
       this.userLogin = info.login;
+      this.scopes = info.scopes;
       // Refresh the stored envelope so `expiresAt` reflects the latest
       // value (Twitch can lengthen it behind the scenes).
       const refreshed: StoredToken = {
@@ -178,6 +187,7 @@ export class TwitchConnection {
     this.token = popup.token;
     this.userId = info.userId;
     this.userLogin = info.login;
+    this.scopes = info.scopes;
     storeToken({
       token: popup.token,
       scopes: (popup.scopes as Scope[]) ?? scopes,

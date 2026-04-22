@@ -163,6 +163,9 @@ function makeHelix(): HelixClient & {
       posts.push({ path, body });
       return {} as never;
     },
+    async patch() {
+      return {} as never;
+    },
     async delete() {
       return;
     },

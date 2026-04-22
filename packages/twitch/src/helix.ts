@@ -3,6 +3,7 @@ import { HELIX_BASE_URL } from "./config";
 export interface HelixClient {
   get<T>(path: string, query?: Record<string, string | number | boolean>): Promise<T>;
   post<T>(path: string, body: unknown): Promise<T>;
+  patch<T>(path: string, body: unknown): Promise<T>;
   delete(path: string): Promise<void>;
 }
 
@@ -89,6 +90,10 @@ export function createHelixClient(opts: CreateHelixClientOptions): HelixClient {
     post<T>(path: string, body: unknown) {
       const url = buildUrl(baseUrl, path);
       return request<T>("POST", url, { body: JSON.stringify(body ?? {}) });
+    },
+    patch<T>(path: string, body: unknown) {
+      const url = buildUrl(baseUrl, path);
+      return request<T>("PATCH", url, { body: JSON.stringify(body ?? {}) });
     },
     async delete(path: string) {
       const url = buildUrl(baseUrl, path);
