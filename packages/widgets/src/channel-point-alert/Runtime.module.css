@@ -1,0 +1,201 @@
+/* ChannelPointAlert widget styles. Same card shape as AlertBox but the
+ * keyframes are scoped with a `cpalert-` prefix so multiple alert-family
+ * widgets on the same page don't fight over animation names. */
+
+.root {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.previewLabel {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, rgba(255, 255, 255, 0.5));
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.card {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg, 0 12px 32px -4px rgba(0, 0, 0, 0.6));
+  will-change: transform, opacity;
+}
+
+.accentBar {
+  flex: 0 0 4px;
+  align-self: stretch;
+  background: var(--accent-color, var(--accent, #8b5cf6));
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  flex: 1 1 auto;
+  gap: 4px;
+}
+
+.badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color, var(--accent, #8b5cf6));
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--fg-primary, #ffffff);
+  word-break: break-word;
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--fg-primary, #ffffff);
+  opacity: 0.85;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.textShadow .title,
+.textShadow .subtitle {
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.media {
+  flex: 0 0 auto;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+/* --------------------------------------------------------------------- */
+/* Entrance / exit state machine. Same pattern as AlertBox. */
+
+.card[data-anim-entrance="slide-up"][data-state="in"] {
+  animation: cpalert-slide-up-in var(--dur-base, 240ms) ease-out both;
+}
+.card[data-anim-entrance="slide-in"][data-state="in"] {
+  animation: cpalert-slide-in-in var(--dur-base, 240ms) ease-out both;
+}
+.card[data-anim-entrance="scale"][data-state="in"] {
+  animation: cpalert-scale-in var(--dur-base, 240ms) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.card[data-anim-entrance="fade"][data-state="in"] {
+  animation: cpalert-fade-in 180ms ease-out both;
+}
+
+.card[data-anim-exit="slide-down"][data-state="out"] {
+  animation: cpalert-slide-down-out var(--dur-base, 240ms) ease-in both;
+}
+.card[data-anim-exit="slide-out"][data-state="out"] {
+  animation: cpalert-slide-out-out var(--dur-base, 240ms) ease-in both;
+}
+.card[data-anim-exit="scale"][data-state="out"] {
+  animation: cpalert-scale-out var(--dur-base, 240ms) ease-in both;
+}
+.card[data-anim-exit="fade"][data-state="out"] {
+  animation: cpalert-fade-out 180ms ease-in both;
+}
+
+@keyframes cpalert-slide-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes cpalert-slide-in-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes cpalert-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes cpalert-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cpalert-slide-down-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes cpalert-slide-out-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+@keyframes cpalert-scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+@keyframes cpalert-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

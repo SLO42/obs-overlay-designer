@@ -4,6 +4,7 @@ import "./text";
 import "./image";
 import "./chat-feed";
 import "./alert-box";
+import "./channel-point-alert";
 
 export {
   registerWidget,
@@ -43,3 +44,10 @@ export type {
   ResolvedAlert,
   AlertKind,
 } from "./alert-box";
+
+export {
+  channelPointAlertDefinition,
+  channelPointAlertSchema,
+  ChannelPointAlertRuntime,
+} from "./channel-point-alert";
+export type { ChannelPointAlertProps } from "./channel-point-alert";

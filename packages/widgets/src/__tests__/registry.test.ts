@@ -31,12 +31,13 @@ describe("widget registry", () => {
     expect(def!.Runtime).toBeTypeOf("function");
   });
 
-  it("lists text, image, chat-feed, and alert-box in allWidgets()", () => {
+  it("lists text, image, chat-feed, alert-box, and channel-point-alert in allWidgets()", () => {
     const kinds = allWidgets().map((w) => w.kind);
     expect(kinds).toContain("text");
     expect(kinds).toContain("image");
     expect(kinds).toContain("chat-feed");
     expect(kinds).toContain("alert-box");
+    expect(kinds).toContain("channel-point-alert");
   });
 
   it("throws when a duplicate kind is registered", () => {
@@ -109,10 +110,11 @@ describe("widget registry", () => {
   });
 
   it("throws when creating an unregistered kind", () => {
-    // alert-box is registered now — pick an unused kind from WidgetKind to
-    // exercise the error path. channel-point-alert is the next task up.
-    expect(() => createWidget("channel-point-alert" as never)).toThrow(/not registered/);
+    // channel-point-alert is registered now — pick an unused kind from
+    // WidgetKind to exercise the error path. event-ticker / emote-wall are
+    // the next tasks up.
     expect(() => createWidget("event-ticker" as never)).toThrow(/not registered/);
+    expect(() => createWidget("emote-wall" as never)).toThrow(/not registered/);
     expect(() => createWidget("unknown" as never)).toThrow(/not registered/);
   });
 });
