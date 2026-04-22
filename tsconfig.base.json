@@ -28,7 +28,9 @@
       "@obs/twitch": ["packages/twitch/src/index.ts"],
       "@obs/twitch/*": ["packages/twitch/src/*"],
       "@obs/donations": ["packages/donations/src/index.ts"],
-      "@obs/donations/*": ["packages/donations/src/*"]
+      "@obs/donations/*": ["packages/donations/src/*"],
+      "@obs/overlay": ["apps/overlay/src/index.ts"],
+      "@obs/overlay/*": ["apps/overlay/src/*"]
     }
   }
 }

@@ -1,0 +1,133 @@
+.root {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg-canvas);
+  outline: none;
+}
+
+.chromeTop,
+.chromeBottom {
+  height: 24px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-surface-1);
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-muted);
+  flex-shrink: 0;
+}
+
+.chromeBottom {
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: none;
+}
+
+.liveDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-lane-chat);
+  box-shadow: 0 0 8px var(--c-lane-chat);
+}
+
+.liveDot.danger {
+  background: var(--c-danger-500);
+  box-shadow: 0 0 8px var(--c-danger-500);
+}
+
+.dim {
+  color: var(--fg-subtle);
+}
+
+.viewport {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stageWrapper {
+  position: relative;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.stage {
+  position: relative;
+  background: var(--bg-stage, #0b0b0f);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 0
+  );
+  background-size: 16px 16px;
+  box-shadow:
+    0 0 0 1px var(--border-default),
+    0 20px 80px rgba(0, 0, 0, 0.5);
+}
+
+.widget {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.widget.locked {
+  pointer-events: none;
+}
+
+.widget.hidden {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.selectionBox {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: 1px solid var(--c-violet-500);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.3);
+}
+
+.handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--c-violet-500);
+  border: 1px solid var(--c-neutral-1000, #fff);
+  border-radius: 2px;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.handleLine {
+  position: absolute;
+  background: var(--c-violet-500);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.snapLine {
+  position: absolute;
+  background: var(--c-violet-600);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.snapLine.vertical {
+  width: 1px;
+}
+
+.snapLine.horizontal {
+  height: 1px;
+}

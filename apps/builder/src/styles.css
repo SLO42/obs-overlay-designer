@@ -7,3 +7,11 @@ body,
   margin: 0;
   padding: 0;
 }
+
+/* AppShell's default 56px left rail is sized for an IconButton strip.
+ * The builder's LeftRail holds Widgets palette + Layers tree, so widen it
+ * here. Targets the <aside> rendered by AppShell when the shell has our
+ * `data-builder` attribute. */
+[data-builder] aside:first-of-type {
+  width: 272px !important;
+}

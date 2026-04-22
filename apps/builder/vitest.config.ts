@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = (name: string) => resolve(__dirname, "../../packages", name, "src");
+const overlaySrc = resolve(__dirname, "../overlay/src");
 
 const pkgs = ["core", "design-system", "widgets", "twitch", "donations"] as const;
 
@@ -18,6 +19,8 @@ export default defineConfig({
         find: `@obs/${name}`,
         replacement: `${pkg(name)}/index.ts`,
       })),
+      { find: /^@obs\/overlay\/(.+)$/, replacement: `${overlaySrc}/$1` },
+      { find: "@obs/overlay", replacement: `${overlaySrc}/index.ts` },
     ],
   },
   test: {
