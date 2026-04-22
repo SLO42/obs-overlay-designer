@@ -18,6 +18,9 @@ export {
   type CreateWidgetPreset,
 } from "./registry";
 
+export { matchTrigger, useTriggerEngine } from "./triggerEngine";
+export type { TriggerEngineOptions } from "./triggerEngine";
+
 export { textDefinition, textSchema, TextRuntime } from "./text";
 export type { TextProps } from "./text";
 

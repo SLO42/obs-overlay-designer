@@ -12,6 +12,7 @@
   "dependencies": {
     "@obs/core": "workspace:*",
     "@obs/design-system": "workspace:*",
+    "@obs/effects": "workspace:*",
     "@obs/overlay": "workspace:*",
     "@obs/twitch": "workspace:*",
     "@obs/widgets": "workspace:*",

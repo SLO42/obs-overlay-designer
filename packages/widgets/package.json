@@ -17,6 +17,7 @@
   "dependencies": {
     "@obs/core": "workspace:*",
     "@obs/design-system": "workspace:*",
+    "@obs/effects": "workspace:*",
     "@obs/twitch": "workspace:*",
     "zod": "^3.23.8"
   },

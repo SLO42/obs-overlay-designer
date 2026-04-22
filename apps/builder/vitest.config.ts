@@ -6,7 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = (name: string) => resolve(__dirname, "../../packages", name, "src");
 const overlaySrc = resolve(__dirname, "../overlay/src");
 
-const pkgs = ["core", "design-system", "widgets", "twitch", "donations"] as const;
+const pkgs = ["core", "design-system", "widgets", "effects", "twitch", "donations"] as const;
 
 export default defineConfig({
   resolve: {

@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import type { Widget } from "@obs/core";
-import { getWidget } from "@obs/widgets";
+import { getWidget, useTriggerEngine } from "@obs/widgets";
 import { transformStyle } from "./dom";
 
 export interface WidgetHostProps {
@@ -18,14 +19,27 @@ export interface WidgetHostProps {
  * concerns. The only special case here is an unknown widget kind, which
  * renders a small muted fallback so a bad export doesn't silently drop
  * content.
+ *
+ * The trigger engine is mounted here (rather than inside each Runtime)
+ * so visual effects wrap the entire widget box — a shake or flash moves
+ * the whole card, not just its inner contents. The engine no-ops under
+ * the default bus (builder Design mode), so the same wrapper works in
+ * both environments.
  */
 export function WidgetHost({ widget, zIndex }: WidgetHostProps) {
   const def = getWidget(widget.kind);
   const style = transformStyle(widget.transform, zIndex);
+  const hostRef = useRef<HTMLDivElement | null>(null);
+
+  // Hook runs before the early unknown-widget return so React's hook
+  // order is stable across renders even if a widget kind disappears from
+  // the registry mid-flight. The engine no-ops when `hostRef.current` is
+  // null or when no triggers/effects are authored.
+  useTriggerEngine(widget, hostRef, { respectReducedMotion: true });
 
   if (!def) {
     return (
-      <div style={style}>
+      <div ref={hostRef} style={style}>
         <div className="unknown-widget">[unknown widget: {widget.kind}]</div>
       </div>
     );
@@ -33,7 +47,7 @@ export function WidgetHost({ widget, zIndex }: WidgetHostProps) {
 
   const Runtime = def.Runtime;
   return (
-    <div style={style} data-widget-id={widget.id} data-widget-kind={widget.kind}>
+    <div ref={hostRef} style={style} data-widget-id={widget.id} data-widget-kind={widget.kind}>
       {/* Cast is safe: the registry keys Runtime by kind and the widget
           instance was created via that same kind. */}
       <Runtime widget={widget as Widget<never>} />

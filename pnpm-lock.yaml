@@ -26,6 +26,9 @@ importers:
       '@obs/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
+      '@obs/effects':
+        specifier: workspace:*
+        version: link:../../packages/effects
       '@obs/overlay':
         specifier: workspace:*
         version: link:../overlay
@@ -93,6 +96,9 @@ importers:
       '@obs/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@obs/effects':
+        specifier: workspace:*
+        version: link:../../packages/effects
       '@obs/twitch':
         specifier: workspace:*
         version: link:../../packages/twitch
@@ -250,6 +256,9 @@ importers:
       '@obs/design-system':
         specifier: workspace:*
         version: link:../design-system
+      '@obs/effects':
+        specifier: workspace:*
+        version: link:../effects
       '@obs/twitch':
         specifier: workspace:*
         version: link:../twitch

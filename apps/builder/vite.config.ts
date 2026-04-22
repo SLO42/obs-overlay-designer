@@ -10,7 +10,7 @@ const pkg = (name: string) => resolve(__dirname, "../../packages", name, "src");
 const overlaySrc = resolve(__dirname, "../overlay/src");
 const overlayDistIndex = resolve(__dirname, "../overlay/dist/index.html");
 
-const pkgs = ["core", "design-system", "widgets", "twitch", "donations"] as const;
+const pkgs = ["core", "design-system", "widgets", "effects", "twitch", "donations"] as const;
 
 /**
  * Dev-only middleware that serves `/overlay-template.html` from the sibling

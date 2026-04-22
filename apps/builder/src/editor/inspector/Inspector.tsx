@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Icon, IconButton, Kbd, Tabs, Tooltip } from "@obs/design-system";
 import { useEditorStore } from "../../store";
 import { InspectorForm } from "./InspectorForm";
+import { TriggersTab } from "./triggers/TriggersTab";
 import styles from "./Inspector.module.css";
 
 type InspectorTab = "style" | "data" | "triggers" | "debug";
@@ -86,7 +87,7 @@ export function Inspector() {
             <div className={styles.unsupported}>Data sources land in Task 8.</div>
           </Tabs.Content>
           <Tabs.Content value="triggers">
-            <div className={styles.unsupported}>Triggers land in a later task.</div>
+            <TriggersTab widget={widget} />
           </Tabs.Content>
           <Tabs.Content value="debug">
             <div className={styles.unsupported}>Live event log coming with Task 8.</div>

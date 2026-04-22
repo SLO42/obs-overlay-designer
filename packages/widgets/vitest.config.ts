@@ -5,7 +5,7 @@ import { dirname, resolve } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = (name: string) => resolve(__dirname, "../", name, "src");
 
-const pkgs = ["core", "design-system", "twitch"] as const;
+const pkgs = ["core", "design-system", "effects", "twitch"] as const;
 
 /**
  * Widget tests live in two environments:
