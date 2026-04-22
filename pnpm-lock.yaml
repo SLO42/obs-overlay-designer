@@ -26,6 +26,9 @@ importers:
       '@obs/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
+      '@obs/widgets':
+        specifier: workspace:*
+        version: link:../../packages/widgets
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.2
@@ -148,7 +151,26 @@ importers:
         version: 5.6.3
 
   packages/widgets:
+    dependencies:
+      '@obs/core':
+        specifier: workspace:*
+        version: link:../core
+      '@obs/design-system':
+        specifier: workspace:*
+        version: link:../design-system
+      react:
+        specifier: ^18.3
+        version: 18.3.1
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
     devDependencies:
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.28
+      '@types/react-dom':
+        specifier: ^18.3.1
+        version: 18.3.7(@types/react@18.3.28)
       typescript:
         specifier: ~5.6.3
         version: 5.6.3

@@ -10,6 +10,7 @@ import {
   type Widget,
   type WidgetKind,
 } from "@obs/core";
+import { createWidget as createWidgetFromRegistry } from "@obs/widgets";
 import {
   applyAndRecord,
   initialHistory,
@@ -430,4 +431,9 @@ export function createEditorStore(options: EditorStoreOptions = {}) {
   return store;
 }
 
-export const useEditorStore = createEditorStore();
+export const useEditorStore = createEditorStore({
+  // The widgets registry is the source of truth for per-kind defaults.
+  // Tests that want to stub this out construct their own store via
+  // `createEditorStore({ createDefaults: ... })`.
+  createDefaults: (kind) => createWidgetFromRegistry(kind),
+});
