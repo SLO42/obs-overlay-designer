@@ -1,0 +1,39 @@
+/* EmoteWall widget styles. Particles are absolutely-positioned <img> nodes
+ * transformed by the rAF loop in Runtime.tsx. No CSS animation — every
+ * position / rotation / fade is driven from JS so the schema's knobs feel
+ * responsive in the builder. */
+
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.previewLabel {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, rgba(255, 255, 255, 0.5));
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  will-change: transform, opacity;
+  /* `user-drag: none` + pointer-events off so stray clicks don't grab the
+   * emotes. Matches chat-feed's emote img behaviour. */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}

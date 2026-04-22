@@ -6,6 +6,7 @@ import "./chat-feed";
 import "./alert-box";
 import "./channel-point-alert";
 import "./event-ticker";
+import "./emote-wall";
 
 export {
   registerWidget,
@@ -61,3 +62,12 @@ export {
   relativeTime,
 } from "./event-ticker";
 export type { EventTickerProps } from "./event-ticker";
+
+export {
+  emoteWallDefinition,
+  emoteWallSchema,
+  EmoteWallRuntime,
+  spawnParticle,
+  stepParticle,
+} from "./emote-wall";
+export type { EmoteWallProps, Particle, World, EmoteWallMode, SpawnOptions } from "./emote-wall";
