@@ -1,0 +1,23 @@
+{
+  "name": "@obs/effects",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@obs/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.1.4",
+    "happy-dom": "^15.11.7",
+    "typescript": "~5.6.3",
+    "vitest": "^2.1.4"
+  }
+}

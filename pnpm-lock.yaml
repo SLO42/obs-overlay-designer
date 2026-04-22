@@ -195,6 +195,25 @@ importers:
         specifier: ~5.6.3
         version: 5.6.3
 
+  packages/effects:
+    dependencies:
+      '@obs/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^2.1.4
+        version: 2.1.9(vitest@2.1.9(happy-dom@15.11.7))
+      happy-dom:
+        specifier: ^15.11.7
+        version: 15.11.7
+      typescript:
+        specifier: ~5.6.3
+        version: 5.6.3
+      vitest:
+        specifier: ^2.1.4
+        version: 2.1.9(happy-dom@15.11.7)
+
   packages/twitch:
     dependencies:
       '@obs/core':

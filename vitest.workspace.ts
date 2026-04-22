@@ -9,6 +9,7 @@ export default defineWorkspace([
   "packages/core",
   "packages/widgets",
   "packages/twitch",
+  "packages/effects",
   "apps/builder",
   "apps/overlay",
 ]);

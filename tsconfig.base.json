@@ -25,6 +25,8 @@
       "@obs/design-system/*": ["packages/design-system/src/*"],
       "@obs/widgets": ["packages/widgets/src/index.ts"],
       "@obs/widgets/*": ["packages/widgets/src/*"],
+      "@obs/effects": ["packages/effects/src/index.ts"],
+      "@obs/effects/*": ["packages/effects/src/*"],
       "@obs/twitch": ["packages/twitch/src/index.ts"],
       "@obs/twitch/*": ["packages/twitch/src/*"],
       "@obs/donations": ["packages/donations/src/index.ts"],
