@@ -1,5 +1,6 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+import federation from "@originjs/vite-plugin-federation";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { readFile } from "node:fs/promises";
@@ -64,7 +65,29 @@ function overlayTemplateDevPlugin(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), overlayTemplateDevPlugin()],
+  plugins: [
+    react(),
+    overlayTemplateDevPlugin(),
+    // Module Federation: expose the Editor component and the Zustand store
+    // so a parent shell can mount the builder as a remote module. The
+    // standalone SPA build still works — this plugin only augments it with
+    // a `remoteEntry.js` entry point that hosts can pull.
+    //
+    // Host wiring is intentionally deferred; the parent stack is undecided.
+    // When the host lands, it should declare a matching `remotes: { streamteam_builder: "https://<deploy>/assets/remoteEntry.js" }` entry plus the same shared singletons.
+    federation({
+      name: "streamteam_builder",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./Editor": "./src/editor/Editor.tsx",
+        "./store": "./src/store/index.ts",
+      },
+      shared: {
+        react: { singleton: true, requiredVersion: "^18.3" },
+        "react-dom": { singleton: true, requiredVersion: "^18.3" },
+      },
+    }),
+  ],
   server: {
     port: 5173,
   },
@@ -83,5 +106,16 @@ export default defineConfig({
       { find: /^@obs\/overlay\/(.+)$/, replacement: `${overlaySrc}/$1` },
       { find: "@obs/overlay", replacement: `${overlaySrc}/index.ts` },
     ],
+  },
+  build: {
+    // Required by vite-plugin-federation: ESM remotes use top-level await.
+    target: "esnext",
+    // MF remotes must not have their entry module preloads inlined, because
+    // the host decides when to load them.
+    modulePreload: false,
+    // MF's internal module graph needs to be stable across chunks; the
+    // plugin handles this but we keep output manual-chunk-free so the
+    // generated remoteEntry.js references named exposed modules cleanly.
+    cssCodeSplit: true,
   },
 });
