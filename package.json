@@ -1,0 +1,21 @@
+{
+  "name": "obs-overlay-designer",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev:builder": "pnpm --filter @obs/builder dev",
+    "dev:overlay": "pnpm --filter @obs/overlay dev",
+    "build": "pnpm -r build",
+    "build:builder": "pnpm --filter @obs/builder build",
+    "build:overlay": "pnpm --filter @obs/overlay build",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "test": "vitest run",
+    "lint": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "vitest": "^2.1.4",
+    "@vitest/coverage-v8": "^2.1.4"
+  }
+}
