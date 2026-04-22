@@ -15,6 +15,10 @@ body,
 body {
   background: #0b0d10;
   color: #e6e8eb;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
 }
