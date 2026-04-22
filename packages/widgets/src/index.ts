@@ -1,8 +1,9 @@
 // Side-effect imports register each widget with the singleton registry.
-// The order determines palette order (text first, then image, then chat-feed).
+// The order determines palette order.
 import "./text";
 import "./image";
 import "./chat-feed";
+import "./alert-box";
 
 export {
   registerWidget,
@@ -22,3 +23,23 @@ export type { ImageProps } from "./image";
 
 export { chatFeedDefinition, chatFeedSchema, ChatFeedRuntime } from "./chat-feed";
 export type { ChatFeedProps } from "./chat-feed";
+
+export {
+  alertBoxDefinition,
+  alertBoxSchema,
+  AlertBoxRuntime,
+  buildPlaceholders,
+  interpolate,
+  resolveAlert,
+  eventKindToAlertKind,
+  tierLabel,
+  countParts,
+} from "./alert-box";
+export type {
+  AlertBoxProps,
+  EventTemplate,
+  AlertMedia,
+  PlaceholderMap,
+  ResolvedAlert,
+  AlertKind,
+} from "./alert-box";
