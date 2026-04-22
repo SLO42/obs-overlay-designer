@@ -7,6 +7,7 @@ import "./alert-box";
 import "./channel-point-alert";
 import "./event-ticker";
 import "./emote-wall";
+import "./custom-trigger";
 
 export {
   registerWidget,
@@ -74,3 +75,21 @@ export {
   stepParticle,
 } from "./emote-wall";
 export type { EmoteWallProps, Particle, World, EmoteWallMode, SpawnOptions } from "./emote-wall";
+
+export {
+  customTriggerDefinition,
+  customTriggerSchema,
+  CustomTriggerRuntime,
+  CustomTriggerInspector,
+  CanvasWidgetsContext,
+  CanvasWidgetsProvider,
+  useCanvasWidgets,
+} from "./custom-trigger";
+export type {
+  CustomTriggerProps,
+  CustomTriggerRule,
+  CustomTriggerMatcher,
+  CustomTriggerEffect,
+  CanvasWidgetsView,
+  CanvasWidgetsProviderProps,
+} from "./custom-trigger";

@@ -1,6 +1,6 @@
 import { InspectorField, NumberField, Stack } from "@obs/design-system";
 import type { Widget } from "@obs/core";
-import { getWidget } from "@obs/widgets";
+import { CanvasWidgetsProvider, getWidget } from "@obs/widgets";
 import { useEditorStore } from "../../store";
 import { ZodRenderer } from "./ZodRenderer";
 import styles from "./Inspector.module.css";
@@ -46,6 +46,7 @@ export function InspectorForm({ widget }: InspectorFormProps) {
   const def = getWidget(widget.kind);
   const updateTransform = useEditorStore((s) => s.updateTransform);
   const updateProps = useEditorStore((s) => s.updateProps);
+  const projectWidgets = useEditorStore((s) => s.project.widgets);
 
   if (!def) {
     return <div className={styles.unsupported}>Unknown widget kind: {widget.kind}</div>;
@@ -106,10 +107,17 @@ export function InspectorForm({ widget }: InspectorFormProps) {
       <div>
         <div className={styles.sectionTitle}>Properties</div>
         {CustomInspector ? (
-          <CustomInspector
-            widget={widget}
-            update={(patch) => updateProps(widget.id, patch as Record<string, unknown>)}
-          />
+          // Canvas-wide widget list is threaded through a context so
+          // Inspectors in `@obs/widgets` can read it without importing
+          // app-local state (packages can't import from apps).
+          <CanvasWidgetsProvider
+            widgets={projectWidgets.map((w) => ({ id: w.id, kind: w.kind, name: w.name }))}
+          >
+            <CustomInspector
+              widget={widget}
+              update={(patch) => updateProps(widget.id, patch as Record<string, unknown>)}
+            />
+          </CanvasWidgetsProvider>
         ) : (
           <ZodRenderer
             schema={def.schema as never}

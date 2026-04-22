@@ -1,0 +1,135 @@
+/* Inspector layout for the CustomTrigger widget. Mirrors the Task 17
+ * TriggersTab module styles so the visual language stays consistent. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2, 8px);
+}
+
+.hint {
+  color: var(--fg-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.emptyState {
+  color: var(--fg-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  padding: var(--space-3, 12px) 0;
+}
+
+.rulesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 12px);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  justify-content: space-between;
+}
+
+.cardHeaderRight {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+}
+
+.cardBody {
+  margin-top: var(--space-2, 8px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 12px);
+}
+
+.subLabel {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: var(--space-1, 4px);
+}
+
+.targetsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 4px);
+}
+
+.targetRow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--fg-body);
+}
+
+.targetKind {
+  color: var(--fg-muted);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  margin-left: auto;
+}
+
+.effectsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+}
+
+.effectRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+  padding: var(--space-2, 8px);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+  border-radius: var(--radius-md, 6px);
+  background: var(--bg-surface-2, rgba(24, 26, 32, 0.3));
+}
+
+.effectRowHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2, 8px);
+}
+
+.effectRowHeaderLeft {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+}
+
+.effectTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg-body);
+}
+
+.rolesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2, 8px) var(--space-3, 12px);
+}
+
+.roleItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--fg-body);
+}

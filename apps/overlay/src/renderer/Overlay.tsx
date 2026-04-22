@@ -1,6 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
-import { OverlayBusProvider, type EventBus, type Project, type StreamEvent } from "@obs/core";
+import {
+  OverlayBusProvider,
+  WidgetHostRegistryProvider,
+  type EventBus,
+  type Project,
+  type StreamEvent,
+} from "@obs/core";
 import { WidgetHost } from "./WidgetHost";
 
 export interface OverlayProps {
@@ -72,13 +78,15 @@ export function Overlay({ project, bus }: OverlayProps) {
 
   return (
     <OverlayBusProvider bus={bus}>
-      <div ref={rootRef} style={{ width: "100%", height: "100%", position: "relative" }}>
-        <div className="stage" style={stageStyle}>
-          {visible.map((widget, index) => (
-            <WidgetHost key={widget.id} widget={widget} zIndex={index} />
-          ))}
+      <WidgetHostRegistryProvider>
+        <div ref={rootRef} style={{ width: "100%", height: "100%", position: "relative" }}>
+          <div className="stage" style={stageStyle}>
+            {visible.map((widget, index) => (
+              <WidgetHost key={widget.id} widget={widget} zIndex={index} />
+            ))}
+          </div>
         </div>
-      </div>
+      </WidgetHostRegistryProvider>
     </OverlayBusProvider>
   );
 }
