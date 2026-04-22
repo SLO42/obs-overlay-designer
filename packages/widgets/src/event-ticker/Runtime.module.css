@@ -1,0 +1,83 @@
+/* EventTicker widget styles. The root fills its host box; a single `track`
+ * div holds every entry pill in a flex row and is animated by the Runtime's
+ * rAF loop via `transform: translateX(...)`. No CSS keyframes drive the
+ * scroll — `pixelsPerSecond` is user-tunable at runtime and keyframe math
+ * would be awkward. */
+
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.previewLabel {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-secondary, rgba(255, 255, 255, 0.5));
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.track {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.trackMeasuring {
+  visibility: hidden;
+}
+
+.entry {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  line-height: 1.2;
+  /* `--accent-color` is injected inline from the Runtime. */
+}
+
+.entryIcon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color, #e6e8ef);
+}
+
+.entryUser {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.entryText {
+  white-space: nowrap;
+  opacity: 0.95;
+}
+
+.entryTime {
+  white-space: nowrap;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85em;
+}
+
+.textShadow .entryUser,
+.textShadow .entryText,
+.textShadow .entryTime {
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 1px 2px rgba(0, 0, 0, 0.45);
+}

@@ -5,6 +5,7 @@ import "./image";
 import "./chat-feed";
 import "./alert-box";
 import "./channel-point-alert";
+import "./event-ticker";
 
 export {
   registerWidget,
@@ -51,3 +52,12 @@ export {
   ChannelPointAlertRuntime,
 } from "./channel-point-alert";
 export type { ChannelPointAlertProps } from "./channel-point-alert";
+
+export {
+  eventTickerDefinition,
+  eventTickerSchema,
+  EventTickerRuntime,
+  formatAmount,
+  relativeTime,
+} from "./event-ticker";
+export type { EventTickerProps } from "./event-ticker";
