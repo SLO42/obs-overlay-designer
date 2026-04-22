@@ -17,11 +17,15 @@
   "dependencies": {
     "@obs/core": "workspace:*",
     "@obs/design-system": "workspace:*",
+    "@obs/twitch": "workspace:*",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "typescript": "~5.6.3"
+    "happy-dom": "^15.11.7",
+    "typescript": "~5.6.3",
+    "vitest": "^2.1.4"
   }
 }

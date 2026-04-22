@@ -1,0 +1,156 @@
+/* ChatFeed widget styles. The widget fills its WidgetHost box (`inset: 0`).
+ * All sizing is driven from the transform applied by the host; the Runtime
+ * only controls internal flow, spacing, and animation. */
+
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Bottom-stacked: newest messages at the bottom edge, old ones scroll off
+ * the top as the queue overflows. Flex with `justify-content: flex-end`
+ * glues the contents to the bottom without needing absolute positioning. */
+.alignBottom {
+  justify-content: flex-end;
+}
+
+.alignTop {
+  justify-content: flex-start;
+}
+
+/* Density maps to row padding + inter-row gap. Keeps the same class names
+ * as the schema enum so `styles[density]` is a direct lookup. */
+.compact {
+  gap: 2px;
+}
+.cozy {
+  gap: 4px;
+}
+.comfortable {
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  line-height: 1.35;
+  color: var(--line-color, var(--fg-primary, #ffffff));
+  transition: opacity var(--fade-ms, 500ms) linear;
+  /* `--entrance-anim` is set inline per-row so entrance can be turned off
+   * without recomputing the class list. */
+  animation: var(--entrance-anim, none);
+  will-change: opacity, transform;
+}
+
+.rowCompact {
+  padding: 2px 0;
+}
+.rowCozy {
+  padding: 4px 0;
+}
+.rowComfortable {
+  padding: 8px 0;
+}
+
+.fading {
+  opacity: 0;
+}
+
+.textShadow {
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.timestamp {
+  color: var(--fg-muted, rgba(255, 255, 255, 0.55));
+  margin-right: 6px;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85em;
+}
+
+.badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: 4px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 3px;
+}
+
+.badgeBroadcaster {
+  color: #ef4444;
+}
+.badgeModerator {
+  color: #22c55e;
+}
+.badgeVip {
+  color: #ec4899;
+}
+.badgeSubscriber {
+  color: #8b5cf6;
+}
+
+.displayName {
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.colon {
+  margin-right: 4px;
+  color: var(--fg-secondary, rgba(255, 255, 255, 0.75));
+}
+
+.message {
+  display: inline;
+  word-break: break-word;
+}
+
+.emote {
+  display: inline-block;
+  height: 1.4em;
+  vertical-align: middle;
+  margin: 0 2px;
+  object-fit: contain;
+}
+
+.mention {
+  font-weight: 600;
+}
+
+.cheer {
+  font-weight: 600;
+  color: #f59e0b;
+}
+
+@keyframes chatfeed-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chatfeed-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

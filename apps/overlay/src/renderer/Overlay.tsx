@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
-import type { EventBus, Project, StreamEvent } from "@obs/core";
+import { OverlayBusProvider, type EventBus, type Project, type StreamEvent } from "@obs/core";
 import { WidgetHost } from "./WidgetHost";
 
 export interface OverlayProps {
@@ -23,9 +23,6 @@ export interface OverlayProps {
  * transparent — OBS composites over whatever the streamer is capturing.
  */
 export function Overlay({ project, bus }: OverlayProps) {
-  // Silence the unused-param lint without reshaping the contract.
-  void bus;
-
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [scale, setScale] = useState(1);
 
@@ -74,12 +71,14 @@ export function Overlay({ project, bus }: OverlayProps) {
   useEffect(() => {}, []);
 
   return (
-    <div ref={rootRef} style={{ width: "100%", height: "100%", position: "relative" }}>
-      <div className="stage" style={stageStyle}>
-        {visible.map((widget, index) => (
-          <WidgetHost key={widget.id} widget={widget} zIndex={index} />
-        ))}
+    <OverlayBusProvider bus={bus}>
+      <div ref={rootRef} style={{ width: "100%", height: "100%", position: "relative" }}>
+        <div className="stage" style={stageStyle}>
+          {visible.map((widget, index) => (
+            <WidgetHost key={widget.id} widget={widget} zIndex={index} />
+          ))}
+        </div>
       </div>
-    </div>
+    </OverlayBusProvider>
   );
 }
