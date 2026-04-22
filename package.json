@@ -6,7 +6,7 @@
   "scripts": {
     "dev:builder": "pnpm --filter @obs/builder dev",
     "dev:overlay": "pnpm --filter @obs/overlay dev",
-    "build": "pnpm -r build",
+    "build": "pnpm --filter @obs/overlay build && pnpm --filter @obs/builder build",
     "build:builder": "pnpm --filter @obs/builder build",
     "build:overlay": "pnpm --filter @obs/overlay build",
     "typecheck": "pnpm -r --parallel typecheck",

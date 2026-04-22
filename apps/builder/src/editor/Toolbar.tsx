@@ -16,6 +16,7 @@ import { id as makeId, type StreamEvent } from "@obs/core";
 import { useEditorStore } from "../store";
 import { SHORTCUTS } from "./shortcuts";
 import type { StageMode } from "./Editor";
+import { ExportDialog } from "./export/ExportDialog";
 
 interface ToolbarProps {
   stage: StageMode;
@@ -138,7 +139,8 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
   const canRedo = useEditorStore((s) => s.history.future.length > 0);
   const status = useEditorStore((s) => s.status);
   const lastSavedAt = useEditorStore((s) => s.lastSavedAt);
-  const project = useEditorStore((s) => s.project);
+
+  const [exportOpen, setExportOpen] = useState(false);
 
   // Local name buffer so we can debounce writes to the store. 250ms is
   // fast enough that undo-grouping stays intuitive but slow enough that a
@@ -282,14 +284,11 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
         variant="primary"
         size="sm"
         leading={<Icon name="Download" size={14} />}
-        onClick={() => {
-          // Task 7 wires the real export pipeline; log the project so the
-          // shape is inspectable from the devtools console today.
-          console.log("export", project);
-        }}
+        onClick={() => setExportOpen(true)}
       >
         Export
       </Button>
+      <ExportDialog open={exportOpen} onOpenChange={setExportOpen} />
     </Stack>
   );
 }
