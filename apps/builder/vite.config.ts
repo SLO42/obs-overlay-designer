@@ -65,6 +65,10 @@ function overlayTemplateDevPlugin(): Plugin {
 }
 
 export default defineConfig({
+  // Read `.env*` from the monorepo root so VITE_TWITCH_CLIENT_ID (and any
+  // future env knobs) can live alongside non-Vite scripts that share the
+  // same values. Vite still prefixes env vars with `VITE_` for the client.
+  envDir: resolve(__dirname, "../.."),
   plugins: [
     react(),
     overlayTemplateDevPlugin(),

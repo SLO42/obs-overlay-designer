@@ -8,6 +8,7 @@ import { defineWorkspace } from "vitest/config";
 export default defineWorkspace([
   "packages/core",
   "packages/widgets",
+  "packages/twitch",
   "apps/builder",
   "apps/overlay",
 ]);

@@ -13,10 +13,13 @@ import {
   Tooltip,
 } from "@obs/design-system";
 import { id as makeId, type StreamEvent } from "@obs/core";
+import type { ConnectionStatus } from "@obs/twitch";
 import { useEditorStore } from "../store";
 import { SHORTCUTS } from "./shortcuts";
 import type { StageMode } from "./Editor";
 import { ExportDialog } from "./export/ExportDialog";
+import { ConnectDialog } from "./twitch/ConnectDialog";
+import { useTwitchContext } from "./twitch/TwitchProvider";
 
 interface ToolbarProps {
   stage: StageMode;
@@ -141,6 +144,20 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
   const lastSavedAt = useEditorStore((s) => s.lastSavedAt);
 
   const [exportOpen, setExportOpen] = useState(false);
+  const [connectOpen, setConnectOpen] = useState(false);
+
+  // Shared Twitch connection (lazy-created by <TwitchProvider />). We only
+  // read from it here — the dialog drives the actual connect flow.
+  const { connection } = useTwitchContext();
+  const [twitchStatus, setTwitchStatus] = useState<ConnectionStatus>(connection.status);
+  const [twitchLogin, setTwitchLogin] = useState<string | null>(connection.userLogin);
+  useEffect(() => {
+    const off = connection.onStatusChange((s) => {
+      setTwitchStatus(s);
+      setTwitchLogin(connection.userLogin);
+    });
+    return off;
+  }, [connection]);
 
   // Local name buffer so we can debounce writes to the store. 250ms is
   // fast enough that undo-grouping stays intuitive but slow enough that a
@@ -176,6 +193,31 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
     // so devs can confirm the menu wired up.
     console.debug("[toolbar] test event fired", event);
   };
+
+  const twitchBadge = (() => {
+    switch (twitchStatus) {
+      case "active":
+        return <Badge variant="ok">Live{twitchLogin ? ` · @${twitchLogin}` : ""}</Badge>;
+      case "authenticating":
+      case "validating":
+      case "connecting":
+        return (
+          <Badge variant="info" pulse>
+            Connecting…
+          </Badge>
+        );
+      case "reconnecting":
+        return (
+          <Badge variant="warn" pulse>
+            Reconnecting…
+          </Badge>
+        );
+      case "error":
+        return <Badge variant="danger">EventSub dropped</Badge>;
+      default:
+        return <Badge variant="neutral">Not connected</Badge>;
+    }
+  })();
 
   const savedBadge = (() => {
     if (status === "saving")
@@ -277,8 +319,19 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
               {te.label}
             </Menu.Item>
           ))}
+          <Menu.Separator />
+          <Menu.Item onSelect={() => setConnectOpen(true)}>Connect Twitch…</Menu.Item>
         </Menu>
       </Stack>
+      {twitchBadge}
+      <Button
+        variant="ghost"
+        size="sm"
+        leading={<Icon name="Radio" size={14} />}
+        onClick={() => setConnectOpen(true)}
+      >
+        {twitchStatus === "active" ? "Connected" : "Connect"}
+      </Button>
       {savedBadge}
       <Button
         variant="primary"
@@ -289,6 +342,7 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
         Export
       </Button>
       <ExportDialog open={exportOpen} onOpenChange={setExportOpen} />
+      <ConnectDialog open={connectOpen} onOpenChange={setConnectOpen} />
     </Stack>
   );
 }

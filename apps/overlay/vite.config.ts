@@ -10,6 +10,10 @@ const pkg = (name: string) => resolve(__dirname, "../../packages", name, "src");
 const pkgs = ["core", "design-system", "widgets", "twitch", "donations"] as const;
 
 export default defineConfig({
+  // Read `.env*` from the monorepo root so VITE_TWITCH_CLIENT_ID is
+  // available at build time when the overlay stamps itself with the
+  // client id (auto-connect path).
+  envDir: resolve(__dirname, "../.."),
   plugins: [
     react(),
     // Task 7: produce a single dist/index.html with JS + CSS inlined. The

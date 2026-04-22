@@ -13,6 +13,7 @@
     "@obs/core": "workspace:*",
     "@obs/design-system": "workspace:*",
     "@obs/overlay": "workspace:*",
+    "@obs/twitch": "workspace:*",
     "@obs/widgets": "workspace:*",
     "idb-keyval": "^6.2.1",
     "immer": "^10.1.1",

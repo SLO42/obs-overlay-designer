@@ -132,23 +132,24 @@ describe("buildOverlayHtml", () => {
     expect(parsed.meta.name).toBe(tricky);
   });
 
-  it("strips accessToken from project.twitch before injection", () => {
+  it("preserves accessToken in project.twitch for the exported overlay", () => {
+    // Task 10: exported overlay.html carries the token so the Browser
+    // Source can auto-connect. Persistence (IndexedDB) still drops it,
+    // so the token never leaves the user's device without explicit
+    // intent (download + share of the HTML).
     const project = makeProject({
       twitch: {
         clientId: "abc",
         channelLogin: "me",
-        accessToken: "SECRET_SHOULD_NOT_LEAK",
+        accessToken: "STAMPED_INTO_EXPORT",
       },
     });
     const html = buildOverlayHtml({ project, templateHtml: TEMPLATE });
 
-    // The secret must not appear anywhere in the output.
-    expect(html).not.toContain("SECRET_SHOULD_NOT_LEAK");
-
     const parsed = readConfigFromHtml(html) as Project;
     expect(parsed.twitch?.clientId).toBe("abc");
     expect(parsed.twitch?.channelLogin).toBe("me");
-    expect(parsed.twitch?.accessToken).toBeUndefined();
+    expect(parsed.twitch?.accessToken).toBe("STAMPED_INTO_EXPORT");
   });
 });
 

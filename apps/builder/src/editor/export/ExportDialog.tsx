@@ -143,6 +143,20 @@ export function ExportDialog({ open, onOpenChange }: ExportDialogProps) {
             </ol>
           </Panel>
 
+          {project.twitch?.accessToken ? (
+            <p
+              role="note"
+              style={{
+                color: "var(--c-warn-500, var(--fg-secondary))",
+                margin: 0,
+                fontSize: 13,
+                lineHeight: 1.5,
+              }}
+            >
+              The exported file contains a Twitch access token — treat it like a password.
+            </p>
+          ) : null}
+
           {error ? (
             <p role="alert" style={{ color: "var(--c-danger-500)", margin: 0, fontSize: 13 }}>
               {error}

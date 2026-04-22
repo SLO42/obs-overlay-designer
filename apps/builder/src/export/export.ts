@@ -13,16 +13,17 @@ export interface ExportOptions {
 }
 
 /**
- * Strip secrets from the project before it's serialized into the exported
- * HTML. Today only `project.twitch.accessToken` qualifies -- persistence
- * already drops it, but re-stripping here is a defensive belt-and-braces
- * so a stale in-memory project can't leak a token through Export.
+ * Pass-through used to be a stripper — the exported overlay is now
+ * expected to carry the Twitch access token so the Browser Source can
+ * auto-connect without user interaction (Task 10).
+ *
+ * The ExportDialog surfaces a warning when a token is present so the user
+ * knows the file is effectively a bearer credential. Persistence
+ * (IndexedDB) still drops the token via the store's serializer — that's
+ * where the defensive strip belongs.
  */
 function stripSecrets(project: Project): Project {
-  if (!project.twitch) return project;
-  const { accessToken: _accessToken, ...restTwitch } = project.twitch;
-  void _accessToken;
-  return { ...project, twitch: restTwitch };
+  return project;
 }
 
 // Unicode code points that must be escaped when embedding JSON in a
