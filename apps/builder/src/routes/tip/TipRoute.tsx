@@ -343,8 +343,8 @@ function TipForm({ slug, twitchLogin, config }: TipFormProps) {
             {formatUSD(fees.amountNetCents)}
           </p>
           <p className={styles.caption}>
-            {formatUSD(fees.stripeFeeCents)} Stripe processing +{" "}
-            {formatUSD(fees.platformFeeCents)} platform fee deducted from the tip
+            {formatUSD(fees.stripeFeeCents)} Stripe processing + {formatUSD(fees.platformFeeCents)}{" "}
+            platform fee deducted from the tip
           </p>
         </div>
 
