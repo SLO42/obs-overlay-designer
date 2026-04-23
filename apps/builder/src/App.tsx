@@ -3,6 +3,7 @@ import { consumeRedirect } from "@obs/twitch";
 import { Editor } from "./editor/Editor";
 import { KeyboardShortcuts } from "./editor/KeyboardShortcuts";
 import { TwitchProvider } from "./editor/twitch/TwitchProvider";
+import { TipsProvider } from "./editor/tips/TipsProvider";
 
 /**
  * Minimal callback page rendered at `/twitch/callback`. It runs
@@ -49,8 +50,10 @@ export function App() {
   }
   return (
     <TwitchProvider>
-      <Editor />
-      <KeyboardShortcuts />
+      <TipsProvider>
+        <Editor />
+        <KeyboardShortcuts />
+      </TipsProvider>
     </TwitchProvider>
   );
 }

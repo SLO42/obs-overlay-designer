@@ -7,7 +7,16 @@ import { dirname, resolve } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = (name: string) => resolve(__dirname, "../../packages", name, "src");
 
-const pkgs = ["core", "design-system", "widgets", "effects", "twitch", "donations", "tts"] as const;
+const pkgs = [
+  "core",
+  "design-system",
+  "widgets",
+  "effects",
+  "twitch",
+  "donations",
+  "tts",
+  "supabase-client",
+] as const;
 
 export default defineConfig({
   // Read `.env*` from the monorepo root so VITE_TWITCH_CLIENT_ID is

@@ -12,6 +12,7 @@
   "dependencies": {
     "@obs/core": "workspace:*",
     "@obs/effects": "workspace:*",
+    "@obs/supabase-client": "workspace:*",
     "@obs/twitch": "workspace:*",
     "@obs/widgets": "workspace:*",
     "react": "^18.3.1",

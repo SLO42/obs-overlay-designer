@@ -6,6 +6,12 @@ pnpm-lock.yaml
 *.min.js
 *.min.css
 
+# Supabase Edge Functions run on Deno. Prettier's default TS parser is fine
+# with the syntax, but `supabase/functions/*/deno.json` plus the URL imports
+# trigger spurious diffs on some systems. Exclude to avoid churn; the Deno
+# runtime formats consistently via `deno fmt` if you want.
+supabase/functions/
+
 # Untouched StreamTeam brand-kit drops — these are authored externally and
 # must not be reformatted (their exact bytes are load-bearing for the design
 # system contract).

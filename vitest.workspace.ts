@@ -11,6 +11,7 @@ export default defineWorkspace([
   "packages/twitch",
   "packages/effects",
   "packages/tts",
+  "packages/supabase-client",
   "apps/builder",
   "apps/overlay",
 ]);

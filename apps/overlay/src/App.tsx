@@ -5,6 +5,7 @@ import { installHost } from "./host";
 import { overlayBus } from "./bus";
 import { Overlay } from "./renderer/Overlay";
 import { canvasRenderer } from "./renderer/capabilities";
+import { startTipSubscription } from "./tipBoot";
 
 // Log the detected renderer path once on module load. Does NOT switch
 // behavior — the DOM path is the only thing implemented today.
@@ -84,6 +85,18 @@ export function App() {
       offEvent();
       offErr();
       connection.disconnect();
+    };
+  }, [config]);
+
+  // Auto-subscribe to the StreamTeam tip channel when the embedded config
+  // carries a slug + supabase url/key. Incoming broadcasts fan out on the
+  // shared `overlayBus` as `DonationEvent`s so the SpeakAlert widget and
+  // any future donation ticker pick them up through the same kind-filtered
+  // subscription they already use for Twitch cheers.
+  useEffect(() => {
+    const cleanup = startTipSubscription(config, overlayBus);
+    return () => {
+      cleanup?.();
     };
   }, [config]);
 

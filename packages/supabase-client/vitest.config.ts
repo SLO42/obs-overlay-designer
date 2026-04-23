@@ -3,20 +3,15 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const pkg = (name: string) => resolve(__dirname, "../../packages", name, "src");
-const overlaySrc = resolve(__dirname, "../overlay/src");
+const pkg = (name: string) => resolve(__dirname, "../", name, "src");
 
-const pkgs = [
-  "core",
-  "design-system",
-  "widgets",
-  "effects",
-  "twitch",
-  "donations",
-  "tts",
-  "supabase-client",
-] as const;
+const pkgs = ["core", "supabase-client"] as const;
 
+/**
+ * Mirrors the shape of every other package's vitest config. happy-dom covers
+ * the React hook test in `src/react/useStreamer.test.tsx` and is harmless for
+ * the pure-module tests in `src/*.test.ts`.
+ */
 export default defineConfig({
   resolve: {
     alias: [
@@ -28,8 +23,6 @@ export default defineConfig({
         find: `@obs/${name}`,
         replacement: `${pkg(name)}/index.ts`,
       })),
-      { find: /^@obs\/overlay\/(.+)$/, replacement: `${overlaySrc}/$1` },
-      { find: "@obs/overlay", replacement: `${overlaySrc}/index.ts` },
     ],
   },
   test: {

@@ -1,14 +1,26 @@
 import type { Project, TwitchConfig } from "@obs/core";
 
 /**
+ * Supabase public connection settings, stamped into the exported overlay
+ * so it can subscribe to the streamer's `tips:${slug}` broadcast channel
+ * without any user interaction.
+ */
+export interface OverlaySupabaseConfig {
+  url: string;
+  anonKey: string;
+}
+
+/**
  * The overlay's full config object. `project` is the only piece the DOM
- * renderer needs today; `twitch` and `donationSources` are carried through
- * so Task 7 (export) and Task 8 (sources) can wire them without a config
- * schema rewrite.
+ * renderer needs today; `twitch`, `supabase`, and `donationSources` are
+ * carried through so Task 7 (export) and Tasks 8/22 (sources) can wire
+ * them without a config schema rewrite.
  */
 export interface OverlayConfig {
   project: Project;
   twitch?: TwitchConfig;
+  /** Task 22: if present, the overlay will auto-subscribe to `tips:<slug>`. */
+  supabase?: OverlaySupabaseConfig;
   donationSources?: unknown;
 }
 

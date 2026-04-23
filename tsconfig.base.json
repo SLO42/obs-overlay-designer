@@ -33,6 +33,8 @@
       "@obs/donations/*": ["packages/donations/src/*"],
       "@obs/tts": ["packages/tts/src/index.ts"],
       "@obs/tts/*": ["packages/tts/src/*"],
+      "@obs/supabase-client": ["packages/supabase-client/src/index.ts"],
+      "@obs/supabase-client/*": ["packages/supabase-client/src/*"],
       "@obs/overlay": ["apps/overlay/src/index.ts"],
       "@obs/overlay/*": ["apps/overlay/src/*"]
     }

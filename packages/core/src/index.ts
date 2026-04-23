@@ -1,4 +1,10 @@
-export type { CanvasSize, Project, ProjectMeta, TwitchConfig } from "./types/project";
+export type {
+  CanvasSize,
+  Project,
+  ProjectMeta,
+  StreamTeamConfig,
+  TwitchConfig,
+} from "./types/project";
 export type {
   Effect,
   Transform,

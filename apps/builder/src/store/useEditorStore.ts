@@ -35,6 +35,8 @@ export interface EditorState {
   setCanvas: (size: CanvasSize) => void;
   newProject: () => void;
   loadProject: (project: Project) => void;
+  /** Task 22: stash the streamer slug returned by ensure-streamer. */
+  setStreamteamSlug: (slug: string) => void;
 
   // widgets
   addWidget: (kind: WidgetKind, preset?: Partial<Widget>) => string | null;
@@ -195,6 +197,12 @@ export function createEditorStore(options: EditorStoreOptions = {}) {
             lastSavedAt: undefined,
           });
         },
+
+        setStreamteamSlug: (slug) =>
+          mutate((draft) => {
+            draft.streamteam = { ...(draft.streamteam ?? {}), slug };
+            draft.meta.updatedAt = Date.now();
+          }),
 
         addWidget: (kind, preset) => {
           const base = createDefaults(kind);

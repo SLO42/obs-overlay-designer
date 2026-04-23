@@ -1,0 +1,36 @@
+# Minimal Supabase CLI config. Generated projects have a lot more; we only
+# need the fields that affect `supabase db push` / `supabase functions deploy`.
+# `project_id` gets set when you run `supabase link --project-ref <ref>`; we
+# intentionally leave it blank so cloning the repo doesn't accidentally
+# target someone else's project.
+project_id = ""
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+# We do NOT use Supabase Auth — streamers sign in via Twitch OAuth and the
+# Edge Functions validate the Twitch access token server-side. Keeping auth
+# enabled for local dev is harmless (the CLI still boots gotrue) but no
+# production code relies on it.
+enabled = true
+
+[realtime]
+enabled = true
+# Keep the broadcast channel format explicit; our Edge Functions publish on
+# `tips:<slug>` using `realtime.send()` server-side.
+max_header_length = 4096
+
+[functions]
+verify_jwt = false
