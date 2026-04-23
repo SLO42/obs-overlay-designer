@@ -31,6 +31,8 @@
       "@obs/twitch/*": ["packages/twitch/src/*"],
       "@obs/donations": ["packages/donations/src/index.ts"],
       "@obs/donations/*": ["packages/donations/src/*"],
+      "@obs/tts": ["packages/tts/src/index.ts"],
+      "@obs/tts/*": ["packages/tts/src/*"],
       "@obs/overlay": ["apps/overlay/src/index.ts"],
       "@obs/overlay/*": ["apps/overlay/src/*"]
     }
