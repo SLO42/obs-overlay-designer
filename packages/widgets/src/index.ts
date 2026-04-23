@@ -8,6 +8,7 @@ import "./channel-point-alert";
 import "./event-ticker";
 import "./emote-wall";
 import "./custom-trigger";
+import "./speak-alert";
 
 export {
   registerWidget,
@@ -93,3 +94,12 @@ export type {
   CanvasWidgetsView,
   CanvasWidgetsProviderProps,
 } from "./custom-trigger";
+
+export {
+  speakAlertDefinition,
+  speakAlertSchema,
+  SpeakAlertRuntime,
+  SpeakAlertInspector,
+  DEFAULT_EMOTION_ANIMATIONS,
+} from "./speak-alert";
+export type { SpeakAlertProps, EmotionAnimation } from "./speak-alert";

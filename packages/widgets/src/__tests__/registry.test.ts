@@ -31,7 +31,7 @@ describe("widget registry", () => {
     expect(def!.Runtime).toBeTypeOf("function");
   });
 
-  it("lists all eight widget kinds in allWidgets()", () => {
+  it("lists all nine widget kinds in allWidgets()", () => {
     const kinds = allWidgets().map((w) => w.kind);
     expect(kinds).toContain("text");
     expect(kinds).toContain("image");
@@ -41,7 +41,8 @@ describe("widget registry", () => {
     expect(kinds).toContain("event-ticker");
     expect(kinds).toContain("emote-wall");
     expect(kinds).toContain("custom-trigger");
-    expect(kinds.length).toBe(8);
+    expect(kinds).toContain("speak-alert");
+    expect(kinds.length).toBe(9);
   });
 
   it("throws when a duplicate kind is registered", () => {

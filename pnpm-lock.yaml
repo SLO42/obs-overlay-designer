@@ -283,6 +283,9 @@ importers:
       '@obs/effects':
         specifier: workspace:*
         version: link:../effects
+      '@obs/tts':
+        specifier: workspace:*
+        version: link:../tts
       '@obs/twitch':
         specifier: workspace:*
         version: link:../twitch

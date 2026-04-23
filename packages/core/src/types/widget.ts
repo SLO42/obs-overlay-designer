@@ -24,7 +24,8 @@ export type WidgetKind =
   | "channel-point-alert"
   | "event-ticker"
   | "custom-trigger"
-  | "timer-goal";
+  | "timer-goal"
+  | "speak-alert";
 
 export interface Widget<Props = Record<string, unknown>> {
   id: string;
