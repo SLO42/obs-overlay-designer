@@ -11,7 +11,6 @@ import {
 } from "@obs/design-system";
 import {
   callCreateCheckoutSession,
-  computeSharedFees,
   createSupabaseClient,
   readSupabasePublicConfig,
   type SupabaseFunctionsConfig,
@@ -38,15 +37,6 @@ const MIN_TOTAL_CENTS = 100;
 const MAX_TOTAL_CENTS = 1_000_00;
 const MAX_MESSAGE_LEN = 200;
 const MAX_NAME_LEN = 40;
-
-/** Format minor-unit integers as "$X.XX" for display. */
-function formatUSD(cents: number): string {
-  const sign = cents < 0 ? "-" : "";
-  const abs = Math.abs(cents);
-  const whole = Math.floor(abs / 100);
-  const frac = abs % 100;
-  return `${sign}$${whole}.${frac.toString().padStart(2, "0")}`;
-}
 
 /**
  * Public tip page. Mounted at `/tip/:slug`. No auth, no editor providers —
@@ -231,15 +221,13 @@ interface TipFormProps {
 
 function TipForm({ slug, twitchLogin, config }: TipFormProps) {
   // Track cents internally; the NumberField renders dollars. This is what
-  // the viewer is charged — Stripe + platform fees come out of this amount.
+  // the viewer is charged — Stripe + platform fees come out of this amount,
+  // but the viewer doesn't see a breakdown (it's in the Terms).
   const [totalCents, setTotalCents] = useState<number>(300);
   const [viewerDisplayName, setViewerDisplayName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  // Fees are deducted from the viewer's charge. Pure math — compute every render.
-  const fees = useMemo(() => computeSharedFees(totalCents), [totalCents]);
 
   const trimmedName = viewerDisplayName.trim();
   const nameTooLong = trimmedName.length > MAX_NAME_LEN;
@@ -337,17 +325,6 @@ function TipForm({ slug, twitchLogin, config }: TipFormProps) {
           />
         </InspectorField>
 
-        <div className={styles.breakdown} data-testid="tip-totals">
-          <p className={styles.totals}>
-            You&apos;ll be charged {formatUSD(totalCents)} · Streamer gets{" "}
-            {formatUSD(fees.amountNetCents)}
-          </p>
-          <p className={styles.caption}>
-            {formatUSD(fees.stripeFeeCents)} Stripe processing + {formatUSD(fees.platformFeeCents)}{" "}
-            platform fee deducted from the tip
-          </p>
-        </div>
-
         {submitError ? (
           <p role="alert" className={styles.errorText}>
             {submitError}
@@ -357,6 +334,14 @@ function TipForm({ slug, twitchLogin, config }: TipFormProps) {
         <Button variant="primary" disabled={disabled} onClick={() => void handleSubmit()}>
           {submitting ? "Redirecting to Stripe…" : "Pay with card"}
         </Button>
+
+        <p className={styles.caption}>
+          By tipping you agree to our{" "}
+          <a href="/terms" target="_blank" rel="noopener" className={styles.termsLink}>
+            Terms
+          </a>
+          .
+        </p>
       </Stack>
     </Panel>
   );

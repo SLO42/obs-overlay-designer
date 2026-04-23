@@ -100,20 +100,15 @@ describe("TipRoute", () => {
     expect(await screen.findByText(/isn.?t accepting tips yet/i)).toBeTruthy();
   });
 
-  it("shows the fee breakdown that matches computeSharedFees(300)", async () => {
-    const { computeSharedFees } = await import("@obs/supabase-client");
-    const expected = computeSharedFees(300);
+  it("does not surface the fee breakdown to the viewer", async () => {
     renderRoute();
-    const totals = await screen.findByTestId("tip-totals");
-    const dollars = (cents: number) =>
-      `$${Math.floor(cents / 100)}.${String(cents % 100).padStart(2, "0")}`;
-    // Viewer is charged the default $3.00 they typed.
-    expect(totals.textContent).toContain("$3.00");
-    // Streamer nets whatever's left after Stripe + platform fees.
-    expect(totals.textContent).toContain(dollars(expected.amountNetCents));
-    // Breakdown shows each fee line.
-    expect(totals.textContent).toContain(dollars(expected.stripeFeeCents));
-    expect(totals.textContent).toContain(dollars(expected.platformFeeCents));
+    await screen.findByRole("button", { name: /pay with card/i });
+    // No breakdown panel; the viewer only sees the amount they typed.
+    expect(screen.queryByTestId("tip-totals")).toBeNull();
+    expect(screen.queryByText(/streamer gets/i)).toBeNull();
+    expect(screen.queryByText(/Stripe processing/i)).toBeNull();
+    // Terms link is present so the fee disclosure path exists.
+    expect(screen.getByRole("link", { name: /terms/i })).toBeTruthy();
   });
 
   it("submit invokes callCreateCheckoutSession and redirects to the returned URL", async () => {

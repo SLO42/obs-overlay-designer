@@ -38,13 +38,6 @@
   margin: 0;
 }
 
-.totals {
-  font-size: 14px;
-  color: var(--fg-primary);
-  font-weight: 600;
-  margin: 0;
-}
-
 .errorText {
   color: var(--c-danger-500);
   font-size: 13px;
@@ -114,12 +107,7 @@
   text-align: center;
 }
 
-.breakdown {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-3) var(--space-4);
-  background: color-mix(in oklab, var(--bg-surface-3, #1a1e27) 60%, transparent);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+.termsLink {
+  color: var(--c-accent-500, #9147ff);
+  text-decoration: underline;
 }
