@@ -144,9 +144,8 @@ describe("callCreateCheckoutSession", () => {
     });
     const out = await callCreateCheckoutSession(baseCfg(fake), {
       slug: "alice",
-      netCents: 500,
+      totalCents: 500,
       currency: "usd",
-      coverFees: true,
       viewerDisplayName: "Bob",
       message: "GL HF",
     });
@@ -154,9 +153,8 @@ describe("callCreateCheckoutSession", () => {
     const body = JSON.parse(calls[0]!.init.body as string);
     expect(body).toEqual({
       slug: "alice",
-      netCents: 500,
+      totalCents: 500,
       currency: "usd",
-      coverFees: true,
       viewerDisplayName: "Bob",
       message: "GL HF",
     });
@@ -171,7 +169,7 @@ describe("callCreateCheckoutSession", () => {
         anonKey: "anon",
         fetchImpl: fake,
       },
-      { slug: "alice", netCents: 100, currency: "usd", coverFees: false },
+      { slug: "alice", totalCents: 100, currency: "usd" },
     );
     expect(calls[0]!.url).toBe("https://example.supabase.co/functions/v1/create-checkout-session");
   });

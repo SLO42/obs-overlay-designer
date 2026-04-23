@@ -111,15 +111,16 @@ export function callGetConnectStatus(
 
 /**
  * Kick off a Stripe Checkout Session for a tip. Public — no Twitch token.
- * Returns `{ url }` which the caller should redirect the viewer to.
+ * Viewer is charged exactly `totalCents`; Stripe + platform fees come out
+ * of that amount and the streamer nets the remainder. Returns `{ url }`
+ * which the caller should redirect the viewer to.
  */
 export function callCreateCheckoutSession(
   cfg: SupabaseFunctionsConfig,
   args: {
     slug: string;
-    netCents: number;
+    totalCents: number;
     currency: "usd";
-    coverFees: boolean;
     viewerDisplayName?: string;
     message?: string;
   },

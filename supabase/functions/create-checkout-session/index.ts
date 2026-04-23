@@ -2,27 +2,27 @@
 import { corsFor, jsonResponse } from "../_shared/cors.ts";
 import { createAdminClient } from "../_shared/supabaseAdmin.ts";
 import { createStripeClient } from "../_shared/stripe.ts";
-import {
-  computeCoveredFees,
-  computeSharedFees,
-  PLATFORM_FEE_CENTS,
-} from "../_shared/fees.ts";
+import { computeSharedFees, PLATFORM_FEE_CENTS } from "../_shared/fees.ts";
 
 /**
  * POST /create-checkout-session  (public — no Twitch token)
  * body: {
  *   slug: string,
- *   netCents: number,            // desired streamer-net in minor units
+ *   totalCents: number,          // what the viewer pays (minor units)
  *   currency: "usd",
- *   coverFees: boolean,          // viewer pays Stripe + platform fee on top
  *   viewerDisplayName?: string,
  *   message?: string,
  * }
  *
  * Returns `{ url }` — the Stripe Checkout Session URL for the viewer.
  *
+ * Fee model: the viewer is charged exactly `totalCents`. Stripe's processing
+ * fee (~2.9% + $0.30) and our $0.01 platform fee come out of that amount via
+ * Stripe Connect's `application_fee_amount` + auto-deducted processor fee.
+ * The streamer nets the remainder.
+ *
  * Validation rules:
- *   - netCents >= 100 (our $1 minimum)
+ *   - totalCents >= 100 (our $1 minimum)
  *   - currency === "usd"
  *   - viewerDisplayName length <= 40
  *   - message length <= 200
@@ -30,20 +30,19 @@ import {
  *
  * Metadata we stash on the PaymentIntent is what `stripe-webhook` reads
  * back out on `checkout.session.completed`. Everything we need to insert a
- * donation row (including fee amounts pre-computed by the fee solver) is
- * stored there so the webhook doesn't have to recompute.
+ * donation row (including pre-computed fee amounts) is stored there so the
+ * webhook doesn't have to recompute.
  */
 
 interface Body {
   slug?: string;
-  netCents?: number;
+  totalCents?: number;
   currency?: string;
-  coverFees?: boolean;
   viewerDisplayName?: string;
   message?: string;
 }
 
-const MIN_NET_CENTS = 100;
+const MIN_TOTAL_CENTS = 100;
 const MAX_NAME_LEN = 40;
 const MAX_MESSAGE_LEN = 200;
 
@@ -74,18 +73,15 @@ Deno.serve(async (req) => {
     return jsonResponse(req, { error: "currency must be 'usd' for v1" }, { status: 400 });
   }
   if (
-    typeof body.netCents !== "number" ||
-    !Number.isInteger(body.netCents) ||
-    body.netCents < MIN_NET_CENTS
+    typeof body.totalCents !== "number" ||
+    !Number.isInteger(body.totalCents) ||
+    body.totalCents < MIN_TOTAL_CENTS
   ) {
     return jsonResponse(
       req,
-      { error: `netCents must be an integer >= ${MIN_NET_CENTS}` },
+      { error: `totalCents must be an integer >= ${MIN_TOTAL_CENTS}` },
       { status: 400 },
     );
-  }
-  if (typeof body.coverFees !== "boolean") {
-    return jsonResponse(req, { error: "coverFees must be a boolean" }, { status: 400 });
   }
   const viewerDisplayName = (body.viewerDisplayName ?? "").toString().trim();
   if (viewerDisplayName.length > MAX_NAME_LEN) {
@@ -123,24 +119,13 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Fee math. When `coverFees` is on, the viewer pays the total; the
-    // streamer nets exactly netCents. When off, the total IS netCents and
-    // fees come out of the streamer's net — we still stash the computed
-    // net for the webhook to persist.
-    let unitAmount: number;
-    let netCents: number;
-    let stripeFeeCents: number;
-    if (body.coverFees) {
-      const result = computeCoveredFees(body.netCents);
-      unitAmount = result.amountTotalCents;
-      netCents = body.netCents;
-      stripeFeeCents = result.stripeFeeCents;
-    } else {
-      const result = computeSharedFees(body.netCents);
-      unitAmount = body.netCents;
-      netCents = result.amountNetCents;
-      stripeFeeCents = result.stripeFeeCents;
-    }
+    // Viewer pays `totalCents`. Fees come out of that amount; streamer nets
+    // the remainder. We pre-compute everything here so the webhook's insert
+    // is a straight metadata-to-row copy.
+    const fees = computeSharedFees(body.totalCents);
+    const unitAmount = body.totalCents;
+    const netCents = fees.amountNetCents;
+    const stripeFeeCents = fees.stripeFeeCents;
 
     const stripe = createStripeClient();
     const session = await stripe.checkout.sessions.create({
@@ -163,7 +148,7 @@ Deno.serve(async (req) => {
           slug: streamer.slug,
           viewer_display_name: viewerDisplayName,
           message,
-          covered_fees: String(body.coverFees),
+          covered_fees: "false",
           net_cents: String(netCents),
           stripe_fee_cents: String(stripeFeeCents),
           platform_fee_cents: String(PLATFORM_FEE_CENTS),

@@ -7,12 +7,10 @@ import {
   NumberField,
   Panel,
   Stack,
-  Switch,
   TooltipProvider,
 } from "@obs/design-system";
 import {
   callCreateCheckoutSession,
-  computeCoveredFees,
   computeSharedFees,
   createSupabaseClient,
   readSupabasePublicConfig,
@@ -36,8 +34,8 @@ type LoadState =
   | { kind: "not_found" }
   | { kind: "ready"; streamer: TipStreamer };
 
-const MIN_NET_CENTS = 100;
-const MAX_NET_CENTS = 1_000_00;
+const MIN_TOTAL_CENTS = 100;
+const MAX_TOTAL_CENTS = 1_000_00;
 const MAX_MESSAGE_LEN = 200;
 const MAX_NAME_LEN = 40;
 
@@ -232,47 +230,23 @@ interface TipFormProps {
 }
 
 function TipForm({ slug, twitchLogin, config }: TipFormProps) {
-  // Track cents internally; the NumberField renders dollars.
-  const [netCents, setNetCents] = useState<number>(300);
-  const [coverFees, setCoverFees] = useState<boolean>(true);
+  // Track cents internally; the NumberField renders dollars. This is what
+  // the viewer is charged — Stripe + platform fees come out of this amount.
+  const [totalCents, setTotalCents] = useState<number>(300);
   const [viewerDisplayName, setViewerDisplayName] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // All fee math is pure — compute on every render.
-  const feePreview = useMemo(() => {
-    if (coverFees) {
-      // Viewer covers fees: they pay `total`, streamer nets `netCents`.
-      try {
-        const covered = computeCoveredFees(netCents);
-        return {
-          totalCents: covered.amountTotalCents,
-          netCents,
-          stripeFeeCents: covered.stripeFeeCents,
-          platformFeeCents: covered.platformFeeCents,
-        };
-      } catch {
-        return null;
-      }
-    }
-    // Shared mode: viewer pays `netCents`, streamer receives whatever's left.
-    const shared = computeSharedFees(netCents);
-    return {
-      totalCents: netCents,
-      netCents: shared.amountNetCents,
-      stripeFeeCents: shared.stripeFeeCents,
-      platformFeeCents: shared.platformFeeCents,
-    };
-  }, [netCents, coverFees]);
+  // Fees are deducted from the viewer's charge. Pure math — compute every render.
+  const fees = useMemo(() => computeSharedFees(totalCents), [totalCents]);
 
   const trimmedName = viewerDisplayName.trim();
   const nameTooLong = trimmedName.length > MAX_NAME_LEN;
   const messageTooLong = message.length > MAX_MESSAGE_LEN;
-  const amountTooLow = netCents < MIN_NET_CENTS;
-  const amountTooHigh = netCents > MAX_NET_CENTS;
-  const disabled =
-    submitting || amountTooLow || amountTooHigh || nameTooLong || messageTooLong || !feePreview;
+  const amountTooLow = totalCents < MIN_TOTAL_CENTS;
+  const amountTooHigh = totalCents > MAX_TOTAL_CENTS;
+  const disabled = submitting || amountTooLow || amountTooHigh || nameTooLong || messageTooLong;
 
   const handleSubmit = async () => {
     if (disabled) return;
@@ -281,9 +255,8 @@ function TipForm({ slug, twitchLogin, config }: TipFormProps) {
     try {
       const response = await callCreateCheckoutSession(config, {
         slug,
-        netCents,
+        totalCents,
         currency: "usd",
-        coverFees,
         viewerDisplayName: trimmedName || undefined,
         message: message.trim() || undefined,
       });
@@ -303,7 +276,7 @@ function TipForm({ slug, twitchLogin, config }: TipFormProps) {
         </Stack>
 
         <InspectorField
-          label="Amount you'd like them to get"
+          label="Tip amount"
           htmlFor="tip-amount"
           description={amountTooLow ? "Minimum tip is $1.00." : undefined}
         >
@@ -311,43 +284,19 @@ function TipForm({ slug, twitchLogin, config }: TipFormProps) {
             <span className={styles.currencyPrefix}>$</span>
             <NumberField
               id="tip-amount"
-              value={netCents / 100}
-              min={MIN_NET_CENTS / 100}
-              max={MAX_NET_CENTS / 100}
+              value={totalCents / 100}
+              min={MIN_TOTAL_CENTS / 100}
+              max={MAX_TOTAL_CENTS / 100}
               step={1}
               precision={2}
               onChange={(next) => {
                 if (!Number.isFinite(next)) return;
-                setNetCents(Math.round(next * 100));
+                setTotalCents(Math.round(next * 100));
               }}
               invalid={amountTooLow || amountTooHigh}
             />
           </div>
         </InspectorField>
-
-        <div className={styles.toggleRow}>
-          <Switch
-            aria-label="Cover processing and platform fees"
-            checked={coverFees}
-            onChange={setCoverFees}
-          />
-          <div className={styles.toggleBody}>
-            <label className={styles.toggleLabel}>
-              Cover processing + platform fees so they get the full {formatUSD(netCents)}
-            </label>
-            {feePreview ? (
-              <p className={styles.caption}>
-                {coverFees
-                  ? `${formatUSD(feePreview.stripeFeeCents)} Stripe processing · ${formatUSD(
-                      feePreview.platformFeeCents,
-                    )} platform`
-                  : `${formatUSD(feePreview.stripeFeeCents)} Stripe + ${formatUSD(
-                      feePreview.platformFeeCents,
-                    )} platform deducted from streamer`}
-              </p>
-            ) : null}
-          </div>
-        </div>
 
         <InspectorField
           label="Your display name (optional)"
@@ -388,12 +337,16 @@ function TipForm({ slug, twitchLogin, config }: TipFormProps) {
           />
         </InspectorField>
 
-        {feePreview ? (
-          <p className={styles.totals} data-testid="tip-totals">
-            You&apos;ll be charged {formatUSD(feePreview.totalCents)} · Streamer gets{" "}
-            {formatUSD(feePreview.netCents)}
+        <div className={styles.breakdown} data-testid="tip-totals">
+          <p className={styles.totals}>
+            You&apos;ll be charged {formatUSD(totalCents)} · Streamer gets{" "}
+            {formatUSD(fees.amountNetCents)}
           </p>
-        ) : null}
+          <p className={styles.caption}>
+            {formatUSD(fees.stripeFeeCents)} Stripe processing +{" "}
+            {formatUSD(fees.platformFeeCents)} platform fee deducted from the tip
+          </p>
+        </div>
 
         {submitError ? (
           <p role="alert" className={styles.errorText}>

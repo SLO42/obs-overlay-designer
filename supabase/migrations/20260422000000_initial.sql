@@ -70,7 +70,7 @@ create table if not exists public.donations (
   currency text not null default 'usd',
   viewer_display_name text,
   message text,
-  covered_fees boolean not null default true,
+  covered_fees boolean not null default false,
   created_at timestamptz not null default now()
 );
 

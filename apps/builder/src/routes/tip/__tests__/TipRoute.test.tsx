@@ -91,7 +91,7 @@ describe("TipRoute", () => {
     renderRoute();
     expect(await screen.findByText(/tip @saucyenchiladas/i)).toBeTruthy();
     expect(screen.getByRole("button", { name: /pay with card/i })).toBeTruthy();
-    expect(screen.getByLabelText(/amount you.?d like them to get/i)).toBeTruthy();
+    expect(screen.getByLabelText(/tip amount/i)).toBeTruthy();
   });
 
   it("renders the 'not accepting tips' state when charges are disabled", async () => {
@@ -100,16 +100,20 @@ describe("TipRoute", () => {
     expect(await screen.findByText(/isn.?t accepting tips yet/i)).toBeTruthy();
   });
 
-  it("shows the covered-fees total that matches computeCoveredFees(300)", async () => {
-    const { computeCoveredFees } = await import("@obs/supabase-client");
-    const expected = computeCoveredFees(300);
+  it("shows the fee breakdown that matches computeSharedFees(300)", async () => {
+    const { computeSharedFees } = await import("@obs/supabase-client");
+    const expected = computeSharedFees(300);
     renderRoute();
-    // Default amount is $3.00 and cover-fees is on by default.
     const totals = await screen.findByTestId("tip-totals");
     const dollars = (cents: number) =>
       `$${Math.floor(cents / 100)}.${String(cents % 100).padStart(2, "0")}`;
-    expect(totals.textContent).toContain(dollars(expected.amountTotalCents));
+    // Viewer is charged the default $3.00 they typed.
     expect(totals.textContent).toContain("$3.00");
+    // Streamer nets whatever's left after Stripe + platform fees.
+    expect(totals.textContent).toContain(dollars(expected.amountNetCents));
+    // Breakdown shows each fee line.
+    expect(totals.textContent).toContain(dollars(expected.stripeFeeCents));
+    expect(totals.textContent).toContain(dollars(expected.platformFeeCents));
   });
 
   it("submit invokes callCreateCheckoutSession and redirects to the returned URL", async () => {
@@ -131,9 +135,11 @@ describe("TipRoute", () => {
     });
     const args = state.createCheckoutSessionMock.mock.calls[0]![1] as Record<string, unknown>;
     expect(args.slug).toBe("saucy");
-    expect(args.netCents).toBe(300);
+    expect(args.totalCents).toBe(300);
     expect(args.currency).toBe("usd");
-    expect(args.coverFees).toBe(true);
+    // The cover-fees concept is gone; viewer pays what they type.
+    expect(args).not.toHaveProperty("coverFees");
+    expect(args).not.toHaveProperty("netCents");
     expect(assignMock).toHaveBeenCalledWith("https://stripe/test");
   });
 

@@ -173,7 +173,10 @@ function PayoutsBody({ open }: { open: boolean }) {
           Viewers will see a simple tip page on your channel. Stripe handles card processing and
           payouts — funds land directly in your Stripe Express account.
         </p>
-        <p className={styles.caption}>Your $3 tip = $3.41 to viewer. Streamer gets $3.00.</p>
+        <p className={styles.caption}>
+          Viewers pay exactly what they type. Stripe (2.9% + $0.30) and a $0.01 platform fee come
+          out of the tip — a $3.00 tip nets you $2.59.
+        </p>
         {bootstrapError ? (
           <p role="alert" className={styles.errorText}>
             Couldn&rsquo;t register your streamer profile: {bootstrapError.message}
@@ -262,7 +265,10 @@ function ActiveState({ slug }: { slug: string | null }) {
           </a>
         </div>
 
-        <p className={styles.caption}>Your $3 tip = $3.41 to viewer. Streamer gets $3.00.</p>
+        <p className={styles.caption}>
+          Viewers pay exactly what they type. Stripe (2.9% + $0.30) and a $0.01 platform fee come
+          out of the tip — a $3.00 tip nets you $2.59.
+        </p>
       </Stack>
     </Panel>
   );

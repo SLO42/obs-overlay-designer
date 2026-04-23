@@ -114,21 +114,12 @@
   text-align: center;
 }
 
-.toggleRow {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-.toggleBody {
+.breakdown {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  flex: 1;
-}
-
-.toggleLabel {
-  font-size: 13px;
-  color: var(--fg-primary);
-  cursor: pointer;
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in oklab, var(--bg-surface-3, #1a1e27) 60%, transparent);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
