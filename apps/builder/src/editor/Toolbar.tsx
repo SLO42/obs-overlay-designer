@@ -20,6 +20,7 @@ import type { StageMode } from "./Editor";
 import { ExportDialog } from "./export/ExportDialog";
 import { ConnectDialog } from "./twitch/ConnectDialog";
 import { RewardsDialog } from "./rewards/RewardsDialog";
+import { PayoutsDialog } from "./payouts/PayoutsDialog";
 import { useTwitchContext } from "./twitch/TwitchProvider";
 
 interface ToolbarProps {
@@ -147,6 +148,24 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
   const [exportOpen, setExportOpen] = useState(false);
   const [connectOpen, setConnectOpen] = useState(false);
   const [rewardsOpen, setRewardsOpen] = useState(false);
+  const [payoutsOpen, setPayoutsOpen] = useState(false);
+
+  // Reopen the Payouts dialog automatically when the streamer returns from
+  // Stripe Connect onboarding. We flag the return via `?payouts=open` so the
+  // dialog can re-open without a separate round-trip; the query param is
+  // cleared once consumed so reloads don't reopen it forever.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("payouts") === "open") {
+      setPayoutsOpen(true);
+      params.delete("payouts");
+      const nextSearch = params.toString();
+      const nextUrl =
+        window.location.pathname + (nextSearch ? `?${nextSearch}` : "") + window.location.hash;
+      window.history.replaceState(null, "", nextUrl);
+    }
+  }, []);
 
   // Shared Twitch connection (lazy-created by <TwitchProvider />). We only
   // read from it here — the dialog drives the actual connect flow.
@@ -339,6 +358,17 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
           <Icon name="Gift" />
         </IconButton>
       </Tooltip>
+      <Tooltip
+        content={
+          <span>
+            Tips &amp; payouts <Kbd>⌘T</Kbd>
+          </span>
+        }
+      >
+        <IconButton aria-label="Tips and payouts" onClick={() => setPayoutsOpen(true)}>
+          <Icon name="Banknote" />
+        </IconButton>
+      </Tooltip>
       {savedBadge}
       <Button
         variant="primary"
@@ -351,6 +381,7 @@ export function Toolbar({ stage, onStageChange }: ToolbarProps) {
       <ExportDialog open={exportOpen} onOpenChange={setExportOpen} />
       <ConnectDialog open={connectOpen} onOpenChange={setConnectOpen} />
       <RewardsDialog open={rewardsOpen} onOpenChange={setRewardsOpen} />
+      <PayoutsDialog open={payoutsOpen} onOpenChange={setPayoutsOpen} />
     </Stack>
   );
 }

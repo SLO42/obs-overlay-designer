@@ -1,0 +1,134 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-canvas);
+  color: var(--fg-primary);
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6) var(--space-4);
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--fg-secondary);
+  font-size: 13px;
+}
+
+.caption {
+  font-size: 12px;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+
+.totals {
+  font-size: 14px;
+  color: var(--fg-primary);
+  font-weight: 600;
+  margin: 0;
+}
+
+.errorText {
+  color: var(--c-danger-500);
+  font-size: 13px;
+  margin: 0;
+}
+
+.successBanner {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: color-mix(in oklab, var(--c-success-500, #22c55e) 16%, transparent);
+  border: 1px solid var(--c-success-500, #22c55e);
+  color: var(--fg-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cancelBanner {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  color: var(--fg-secondary);
+  font-size: 13px;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--c-accent-500, #9147ff);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 72px;
+  resize: vertical;
+  font: inherit;
+  color: var(--fg-primary);
+  background: var(--surface-default);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  line-height: 1.4;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--c-accent-500, #9147ff);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--c-accent-500, #9147ff) 25%, transparent);
+}
+
+.amountRow {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.currencyPrefix {
+  font-size: 14px;
+  color: var(--fg-secondary);
+  text-align: center;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.toggleBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.toggleLabel {
+  font-size: 13px;
+  color: var(--fg-primary);
+  cursor: pointer;
+}

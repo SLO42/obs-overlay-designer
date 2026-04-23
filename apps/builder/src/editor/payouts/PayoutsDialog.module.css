@@ -1,0 +1,44 @@
+.tipUrlRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.caption {
+  font-size: 12px;
+  color: var(--fg-secondary);
+  margin: 0;
+}
+
+.body {
+  font-size: 13px;
+  color: var(--fg-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.link {
+  color: var(--c-accent-500, #9147ff);
+  text-decoration: underline;
+  font-size: 13px;
+}
+
+.errorText {
+  color: var(--c-danger-500);
+  font-size: 12px;
+  margin: 0;
+}
+
+.statusRow {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
